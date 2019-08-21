@@ -1,0 +1,13 @@
+1) git init : This command is to initialize the git repository.
+2) git status: This command has two phase : a)red: means new file or modified file.
+					    b)green: added file is ready to commit.
+3) git log: This command displays the hashcode of committed files.
+4) git add <file-name>: This command is used add the file to the disk.
+5) git commit -m "comments": After adding the file this command commits the file.
+6) git checkout <commited-file-hashcode>: this moves the user to the last commited file from the master or another
+commited file. Here user can edit or modify the code but this creates another parallel branch. Further the user
+can wish to merge with the master branch.
+7) git remote -v: this command is used to check the current remote git repository.
+8) git remote add <name> <url>: this command is to add the current github repository. The <name> is used to 
+   shorten the url.
+9) git push <name> master : This command is used to push the local git repository to remote git repository.
