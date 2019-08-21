@@ -1,9 +1,9 @@
 1) git init : This command is to initialize the git repository.
 2) git status: This command has two phase : a)red: means new file or modified file.
 					    b)green: added file is ready to commit.
-3) git log: This command displays the hashcode of committed files.
-4) git add <file-name>: This command is used add the file to the disk.
-5) git commit -m "comments": After adding the file this command commits the file.
+3) git log: This command displays the hashcode of committed files. There are two phases of this command:
+a) git add <file-name>: This command is used add the file to the memory.
+b) git commit -m "comments":  This command is used to save the file in to the disk.
 6) git checkout <commited-file-hashcode>: this moves the user to the last commited file from the master or another
 commited file. Here user can edit or modify the code but this creates another parallel branch. Further the user
 can wish to merge with the master branch.
