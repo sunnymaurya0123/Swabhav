@@ -1,23 +1,25 @@
 package com.techlabs.rectangle;
 
 public class Rectangle {
+	
 	private int width;
 	private int height;
-	private String color;
+	private ColorCategory color;
+	
 	private final int MIN_VALUE=0;
 	private final int MAX_VALUE=100;
+	private static int widthCount;
 	
-	public String getColor() {
-		return color;
+	
+	public Rectangle(int width,int height,ColorCategory color) {
+		this.color=color;	
+		this.width=checkRange(width);
+		this.height=checkRange(height);
+		
 	}
-
-	public void setColor(String color) {
-		color=color.toLowerCase();
-		System.out.println(color);
-		if (((!color.equals("red") && (!color.equals("blue")) && (!color.equals("green")))))
-			this.color = "red";
-		else
-			this.color = color;
+	
+	public ColorCategory getColor() {
+		return color;
 	}
 
 	public int getWidth() {
@@ -28,16 +30,7 @@ public class Rectangle {
 		return height;
 	}
 
-	public void setWidth(int width) {
-		this.width=checkRange(width);
-	}
-
-	public void setHeight(int height) {
-		this.height=checkRange(height);
-		
-	}
-	
-	public int checkRange(int constant) {
+	private int checkRange(int constant) {
 		if(constant>MAX_VALUE)
 			return MAX_VALUE;
 		else if (constant<MIN_VALUE)
