@@ -2,9 +2,14 @@ package com.techlabs.reflection.test;
 import com.techlabs.reflection.*;
 public class Test2 {
 
-	public static void main(String[] args) {
-		Test2 test2=new Test2();
-		Reflection1 reflection1=new Reflection1("String");
+	public static void main(String[] args) throws ClassNotFoundException {
+		System.out.println("entered");
+//		String s=null;
+//		Test2 test2=new Test2();
+		Reflection1 reflection1=new Reflection1(System.class);
+		reflection1.printMethods();
+		reflection1.printConstructors();
+		reflection1.printInto();
 		
 	}
 

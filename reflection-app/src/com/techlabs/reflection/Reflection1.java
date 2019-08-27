@@ -1,23 +1,27 @@
 package com.techlabs.reflection;
 
-import com.techlabs.reflection.*;
 import java.lang.reflect.*;
-
-import com.techlabs.reflection.Reflection;
 
 public class Reflection1 {
 
-	static int methodCount, constructorCount, setterCount, getterCount;
-	private String str;
-	public Reflection1(String string) {
-		this.str=string;
+	int methodCount, constructorCount, setterCount, getterCount;
+//	static Class<?> classobject;
+	 Method[] methodList ;
+			Constructor<?>[] constructor ;
+
+	public Reflection1(Class<?> string)  {
+
+		//classobject =string.getClass();
+		methodList=string.getDeclaredMethods();
+		constructor=string.getConstructors();
+//		/this.classobject=string;
 	}
 
-	Class<?> classobject =str.getClass();
-	Method[] methodList = classobject.getDeclaredMethods();
-	Constructor<?>[] constructor = classobject.getConstructors();
 
-	public void getTheMethods() {
+	String s ="sunny";
+	//Class<?> classobject1 ="Object".getClass();
+	
+	public void printMethods() {
 		for (Method method : methodList) {
 			methodCount = methodCount + 1;
 			System.out.println("Method names: " + method.getName());
@@ -28,14 +32,14 @@ public class Reflection1 {
 		}
 	}
 
-	public void getTheConstructors() {
+	public void printConstructors() {
 		for (Constructor<?> constructors : constructor) {
 			System.out.println("Constructor names: " + constructors.getName());
 			constructorCount = constructorCount + 1;
 		}
 	}
 
-	static void printInto() {
+	public void printInto() {
 		System.out.println(
 				"Total number of methods: " + methodCount + "\nTotal number of constructors: " + constructorCount
 						+ "\nTotal number of getters: " + getterCount + "\nTotal number of setters: " + setterCount);

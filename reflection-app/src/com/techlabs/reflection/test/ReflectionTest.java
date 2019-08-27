@@ -2,8 +2,6 @@ package com.techlabs.reflection.test;
 
 import java.lang.reflect.*;
 
-import com.techlabs.reflection.Reflection;
-
 public class ReflectionTest {
 	
 	static int methodCount, constructorCount, setterCount, getterCount;
@@ -11,6 +9,7 @@ public class ReflectionTest {
 		
 		
 		Class<?> classobject=Object.class;
+		//Class<?> classobject ="Object".getClass();
 		Method[] methodList=classobject.getDeclaredMethods();
 		Constructor<?>[] constructor=classobject.getConstructors();
 		

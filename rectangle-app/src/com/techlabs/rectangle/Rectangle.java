@@ -4,8 +4,7 @@ public class Rectangle {
 	private int width;
 	private int height;
 	private String color;
-	private final int MIN_VALUE=0;
-	private final int MAX_VALUE=100;
+
 	
 	public String getColor() {
 		return color;
@@ -38,11 +37,11 @@ public class Rectangle {
 	}
 	
 	public int checkRange(int constant) {
-		if(constant>MAX_VALUE)
-			return MAX_VALUE;
-		else if (constant<MIN_VALUE)
-			return MIN_VALUE;
-		else if(constant>=MIN_VALUE && constant<=MAX_VALUE)
+		if(constant>Constant.MAX_VALUE)
+			return Constant.MAX_VALUE;
+		else if (constant<Constant.MIN_VALUE)
+			return Constant.MIN_VALUE;
+		else if(constant>=Constant.MIN_VALUE && constant<=Constant.MAX_VALUE)
 			return constant;
 		return 0;
 	}
