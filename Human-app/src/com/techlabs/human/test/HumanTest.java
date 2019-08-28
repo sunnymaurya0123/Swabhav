@@ -8,7 +8,8 @@ public class HumanTest {
 	
 	static float Bmi;
 	public static void main(String[] args) {
-		Human human=new Human("Ganesh",167f,67.5f,23,GenderCategory.FEMALE);
+
+Human human=new Human("Ganesh",167f,67.5f,23,GenderCategory.FEMALE);
 		Human human1=new Human("Sunny",21);
 		BmiCalculator bmiCalculatorObject=new BmiCalculator();
 		human.eat();
