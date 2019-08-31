@@ -22,7 +22,13 @@ public class SerializationTest {
 		
 		System.out.println(serializeDemo1.getNUMBER());
 		System.out.println(serializeDemo1.getName());
-
+		
+		
+		
 	}
-
+	
+	static void doSerialization() {
+		
+	}
+	
 }

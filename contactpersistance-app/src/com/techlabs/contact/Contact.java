@@ -1,10 +1,12 @@
 package com.techlabs.contact;
 
-public class Contact  {
+import java.io.Serializable;
+
+public class Contact implements Serializable {
 	private long contactNumber;
 	private String name;
 	private String email_id;
-	
+
 	public String getName() {
 		return name;
 	}
@@ -13,15 +15,15 @@ public class Contact  {
 		return email_id;
 	}
 
-	public Contact(long number,String names,String email) {
-		this.contactNumber=number;
-		this.name=names;
-		this.email_id=email;
-		
+	public Contact(long number, String names, String email) {
+		this.contactNumber = number;
+		this.name = names;
+		this.email_id = email;
+
 	}
-	
+
 	public long getContactNumber() {
 		return contactNumber;
 	}
-	
+
 }
