@@ -5,11 +5,11 @@ public class FileTest {
 
 	public static void main(String[] args) throws Exception {
 		
-		File file=new File("Resources\\eclipse.ini");
+		File file=new File("Resources/eclipse.ini");
 		FileWriter filewriter=new FileWriter(file,true);
+		System.out.println();
 		filewriter.write("Sunny");
-		filewriter.write("maurya");
-		
+		filewriter.write("\nmaurya");
 		
 		Scanner scanner=new Scanner(file);
 		while(scanner.hasNextLine())

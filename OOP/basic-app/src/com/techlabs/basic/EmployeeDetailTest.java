@@ -10,7 +10,7 @@ public class EmployeeDetailTest {
 		System.out.println("company: "+result[1]);
 		
 		if(result[2].contains("?")) {
-		String x1[]=result[2].split("\\=");
+		String x1[]=result[2].split("=");
 		//System.out.println(result[2]);
 		//System.out.println(x1[0]);
 		
