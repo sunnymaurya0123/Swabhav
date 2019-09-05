@@ -14,7 +14,11 @@ public class HumanTestCount {
 		System.out.println(human.getCount());
 		Human human3=new Human("Ganesh",167f,67.5f,23,GenderCategory.FEMALE);
 		System.out.println(human.getCount());
-
+		System.out.println(Human.headCount());
+		
+		Human human4=new Human();
+		Human human5=new Human();
 	}
+	
 
 }

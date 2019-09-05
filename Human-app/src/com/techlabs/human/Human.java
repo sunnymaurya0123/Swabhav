@@ -7,7 +7,17 @@ public class Human {
 	private int age;
 	private GenderCategory gender;
 	private static int count;
-
+	
+	static {
+		count=100;
+		System.out.println("Static Block");
+	}
+	
+	public Human() {
+		System.out.println("Constructor Block");
+		
+	}
+	
 	public Human(String name, float height, float weight, int age, GenderCategory gender) {
 		count++;
 		this.name = name;
@@ -52,6 +62,10 @@ public class Human {
 	}
 	
 	public int getCount() {
+		return count;
+	}
+	
+	public static int headCount() {
 		return count;
 	}
 
