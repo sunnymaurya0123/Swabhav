@@ -1,58 +1,57 @@
 package com.techlabs.service;
 
 import java.io.*;
-import com.techlabs.service.FileRead;
-
+import java.util.*;
 
 public class LogService {
 	private final static String zero = "0";
 	private final static String one = "1";
 	private final static String two = "2";
-	private String argument;
-	private String[] words = null;
-	private String s,log="";
-	private String logs[];
-	FileRead fileRead=new FileRead();
+	private String s;
+	FileRead fileRead = new FileRead();
 
-	private String printLog(String argument, String word, String s) {
-		switch (argument) {
-		case zero:
-			if (word.equals("INFO"))
-				return s;
-			break;
-		case one:
-			if (word.equals("WARNING"))
-				return s;
-			break;
-		case two:
-			if (word.equals("ERROR"))
-				return s;
-			break;
-		default:
-			if (word.equals("ERROR"))
-				return s;
-			break;
-		}
-		return null;
-}
-
-	public String[] getLog(String args) throws IOException {
-		BufferedReader bufferReader=fileRead.getFile();
-		if(args!=null)
-			argument=args;
-		else
-			argument="";
-		while ((s = bufferReader.readLine()) != null) {
-			words = s.split(" ");
-			for (String word : words) {
-				log=printLog(argument, word, s);
-				if(log!=null) {
-					for(int i=0;;i++) {
-						logs[i]=log;
-					}
-				}
+	private static String getLevel(String type, String argument) {
+		if (type.equals("-level")) {
+			switch (argument) {
+			case zero:
+				return "INFO";
+			case one:
+				return "WARNING";
+			case two:
+				return "ERROR";
+			default:
+				return "ERROR";
 			}
 		}
-		return logs;
+
+		else if (type.equals("-help")) {
+			System.out.println("Enter command '-level 0' to get the logs of 'INFO'"
+					+ "\nEnter command '-level 1' to get the logs of 'WARNING'"
+					+ "\nEnter command '-level 2' to get the logs of 'ERROR'");
+			return "";
+		} else
+			return "ERROR";
 	}
+
+	public ArrayList<String> getLog(String args0, String args1) throws IOException {
+		BufferedReader bufferReader = fileRead.getFile();
+		if (args0 == null && args1 == null) {
+			args0 = "";
+			args1 = "";
+		} else if ((args0 != null && args1 == null))
+			args1 = "";
+		String level = getLevel(args0, args1);
+		ArrayList<String> list = new ArrayList<String>();
+		while ((s = bufferReader.readLine()) != null) {
+			if (!level.equals(""))
+				if (s.contains(level))
+//				System.out.println(s);
+					list.add(s);
+//				return logs;
+		}
+//		return logs;
+		return list;
+
+	}
+
 }

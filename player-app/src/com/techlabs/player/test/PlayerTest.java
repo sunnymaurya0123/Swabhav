@@ -10,15 +10,12 @@ public class PlayerTest {
 		Player elder=player1.whoIsElder(player2);
 		//printInto(player1);
 		printInto(elder);
-		
 
 	}
 	
-	
-	
 	static void printInto(Player player) {
 		System.out.println("Player's Id: "+player.getId()+"\nPlayer's Name: "+player.getName()+
-				"\nPlayer's Age: "+player.getAge()+"\nPlayer's Hashcode: "+player.hashCode()+"Elder"+player.getElder());
+				"\nPlayer's Age: "+player.getAge()+"\nPlayer's Hashcode: "+player.hashCode());
 	}
 
 }
