@@ -1,7 +1,7 @@
 package com.techlabs.enums;
 
 public enum Builder {
-	FENDER,MARTIN,GIBSON,COLLINGS,OLSAN,RYAN,PRS,ANY;
+	FENDER,MARTIN,GIBSON,COLLINGS,OLSON,RYAN,PRS,ANY;
 	
 	public String toString() {
 		switch(this) {
@@ -9,7 +9,7 @@ public enum Builder {
 		case MARTIN: return "martin";
 		case GIBSON: return "gibson";
 		case COLLINGS: return "colllings";
-		case OLSAN: return "olsan";
+		case OLSON: return "olson";
 		case RYAN: return "ryan";
 		case PRS: return "prs";
 		case ANY: return "any";

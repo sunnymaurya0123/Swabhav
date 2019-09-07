@@ -1,23 +1,37 @@
 package com.techlabs.guitar;
 
-import com.techlabs.enums.*;
-
 public class Guitar {
 	private String serialNumber;
 	private double price;
-	private String model;
-	private Type type;
-	private Builder builder;
-	private Wood backWood;
-	private Wood topWood;
 	private GuitarSpec spec;
+
+	public Guitar(String serialNumber,double price,GuitarSpec spec) {
+		this.serialNumber=serialNumber;
+		this.price=price;
+		this.spec=spec;
+	}
+	
+//	public Guitar(String serialNumber2, double price2, String model, int numStrings, Builder builder, Type type,
+//			Wood backWood, Wood topWood) {
+//		this.serialNumber=serialNumber;
+//		this.price=price;
+//		this.model=nodel;
+//		this.numStrings=numStrings;
+//		this.builder=builder;
+//		this.type=type;
+//		this.backWood=backWood;
+//		this.topWood=topWood;
+//	}
+
+
 
 	public GuitarSpec getSpec() {
 		return spec;
 	}
 
 	public double getPrice() {
-		return price;
+		this.price=price;
+		return this.price;
 	}
 
 	public void setPrice(double price) {
@@ -28,23 +42,4 @@ public class Guitar {
 		return serialNumber;
 	}
 
-	public String getModel() {
-		return model;
-	}
-
-	public Type getType() {
-		return type;
-	}
-
-	public Builder getBuilder() {
-		return builder;
-	}
-
-	public Wood getBackWood() {
-		return backWood;
-	}
-
-	public Wood getTopWood() {
-		return topWood;
-	}
 }
