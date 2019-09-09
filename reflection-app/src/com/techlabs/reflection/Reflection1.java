@@ -5,21 +5,17 @@ import java.lang.reflect.*;
 public class Reflection1 {
 
 	int methodCount, constructorCount, setterCount, getterCount;
-//	static Class<?> classobject;
-	 Method[] methodList ;
-			Constructor<?>[] constructor ;
+	Method[] methodList ;
+	Constructor<?>[] constructor ;
 
 	public Reflection1(Class<?> string)  {
 
-		//classobject =string.getClass();
 		methodList=string.getDeclaredMethods();
 		constructor=string.getConstructors();
-//		/this.classobject=string;
 	}
 
 
 	String s ="sunny";
-	//Class<?> classobject1 ="Object".getClass();
 	
 	public void printMethods() {
 		for (Method method : methodList) {

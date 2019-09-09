@@ -1,5 +1,7 @@
 package com.techlabs.reflection;
 
+import javax.jws.WebService;
+
 public class Reflection {
 	
 	private int number;
@@ -23,5 +25,5 @@ public class Reflection {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
 }
