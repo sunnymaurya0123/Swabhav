@@ -4,20 +4,20 @@ import java.io.*;
 import java.util.*;
 
 public class LogService {
-	private final static String zero = "0";
-	private final static String one = "1";
-	private final static String two = "2";
+	private final static String INFO = "0";
+	private final static String WARNING = "1";
+	private final static String ERROR = "2";
 	private String s;
 	FileRead fileRead = new FileRead();
 
 	private static String getLevel(String type, String argument) {
 		if (type.equals("-level")) {
 			switch (argument) {
-			case zero:
+			case INFO:
 				return "INFO";
-			case one:
+			case WARNING:
 				return "WARNING";
-			case two:
+			case ERROR:
 				return "ERROR";
 			default:
 				return "ERROR";
@@ -45,11 +45,8 @@ public class LogService {
 		while ((s = bufferReader.readLine()) != null) {
 			if (!level.equals(""))
 				if (s.contains(level))
-//				System.out.println(s);
 					list.add(s);
-//				return logs;
 		}
-//		return logs;
 		return list;
 
 	}
