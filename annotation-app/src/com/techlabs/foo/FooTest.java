@@ -1,42 +1,43 @@
 package com.techlabs.foo;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import com.techlabs.unittest.UnitTest;
 
 public class FooTest {
-	static int annotationCount;
-	static int pass;
-	static int fail;
-	static int trueCount;
-	static int falseCount;
-	static Class<?> classobject=Foo.class;
-	public static void main(String[] args) {
+	private static int annotationCount;
+	private static int trueCount;
+	private static int falseCount;
+	private static Class<?> classobject=Foo.class;
+	private static Foo fooObj=new Foo();
+	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		
 		Method[] methodList=classobject.getDeclaredMethods();
 		for(Method method:methodList) {
 			increementAnnotationCount(method);
 		}
-		System.out.println(annotationCount);
-		System.out.println(trueCount);
-		System.out.println(falseCount);
-//		Foo foo=new Foo();
-//		increementResultCount(foo);
-
+		
+		System.out.println("Number of Annotations: "+annotationCount);
+		System.out.println("Test Passed: "+trueCount);
+		System.out.println("Test failed: "+falseCount);
 	}
 	
-	static void increementAnnotationCount(Method method) {
+	static void increementAnnotationCount(Method method) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		if(method.isAnnotationPresent(UnitTest.class)) {
-			//if(method.invoke(classobject))
-				trueCount++;
-			//else
-				falseCount++;
+			
+				boolean booleanValue=(Boolean)method.invoke(fooObj);
+				increementResult(booleanValue);
+			
 			annotationCount++;
 		}
 	}
-//	static void increementResultCount(Foo foo) {
-//		if(foo.m1())
-//			pass++;
-//	}
+	
+	static void increementResult(boolean booleanValue) {
+		if(booleanValue==true)
+			trueCount++;
+		else
+			falseCount++;
+	}
 
 }

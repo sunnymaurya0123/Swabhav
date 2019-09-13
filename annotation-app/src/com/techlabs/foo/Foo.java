@@ -1,5 +1,4 @@
 package com.techlabs.foo;
-
 import com.techlabs.unittest.UnitTest;
 
 public class Foo {

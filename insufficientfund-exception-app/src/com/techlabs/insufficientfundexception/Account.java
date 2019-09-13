@@ -1,4 +1,4 @@
-package com.techlabs.account;
+package com.techlabs.insufficientfundexception;
 
 public class Account {
 	private String accountNumber;
@@ -31,7 +31,7 @@ public class Account {
 			System.out.println("Minimum amount to withdraw is: $" + MIN_AMOUNT);
 		else {
 			System.out.println("Not Enough Balance!!!");
-			throw new RuntimeException("Withdraw Unsuccessful!!!  Minimum amount to withdraw is: $"+MIN_AMOUNT);
+			throw new InsufficientFundException(this);
 		}
 	}
 
