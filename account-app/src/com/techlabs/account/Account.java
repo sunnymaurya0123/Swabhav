@@ -28,7 +28,8 @@ public class Account {
 			balance=newBalance;
 		
 		else if (amount < MIN_AMOUNT)
-			System.out.println("Minimum amount to withdraw is: $" + MIN_AMOUNT);
+			throw new RuntimeException("Minimum amount to withdraw is: $" + MIN_AMOUNT);
+			//System.out.println("Minimum amount to withdraw is: $" + MIN_AMOUNT);
 		else {
 			System.out.println("Not Enough Balance!!!");
 			throw new RuntimeException("Withdraw Unsuccessful!!!  Minimum amount to withdraw is: $"+MIN_AMOUNT);

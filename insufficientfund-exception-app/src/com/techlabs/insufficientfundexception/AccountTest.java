@@ -1,6 +1,4 @@
-package com.techlabs.account.test;
-
-import com.techlabs.account.Account;
+package com.techlabs.insufficientfundexception;
 
 public class AccountTest {
 
@@ -9,15 +7,14 @@ public class AccountTest {
 		Account account2 = new Account("984654616", "Maurya");
 		// account1.deposit(300);
 		try {
-		account1.withdraw(50);
+		account1.withdraw(501);
 		}
-		catch(RuntimeException e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
+		catch(InsufficientFundException ex) {
+			System.out.println(ex.getMessage());
+			//ex.printStackTrace();
 		}
 		printInfo(account1);
 		System.out.println();
-		//printInfo(account2);
 	}
 
 	static void printInfo(Account account) {

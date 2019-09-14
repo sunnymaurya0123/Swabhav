@@ -5,6 +5,11 @@ public class Account {
 	private String name;
 	private double balance;
 	private final static int MIN_AMOUNT = 500;
+	private double amount;
+
+	public double getAmount() {
+		return amount;
+	}
 
 	public Account(String accountNumber, String name, double balance) {
 		this.accountNumber = accountNumber;
@@ -20,7 +25,8 @@ public class Account {
 		balance = balance + amount;
 	}
 
-	public void withdraw(double amount) {
+	public void withdraw(double amount) throws InsufficientFundException {
+		this.amount=amount;
 		double newBalance=0;
 		if (amount >= MIN_AMOUNT && amount <= balance)
 			 newBalance = balance - amount;
@@ -30,7 +36,6 @@ public class Account {
 		else if (amount < MIN_AMOUNT)
 			System.out.println("Minimum amount to withdraw is: $" + MIN_AMOUNT);
 		else {
-			System.out.println("Not Enough Balance!!!");
 			throw new InsufficientFundException(this);
 		}
 	}
