@@ -7,7 +7,7 @@ public class AccountTest {
 	public static void main(String[] args) {
 		Account account1 = new Account("165431984", "Sunny", 1000);
 		Account account2 = new Account("984654616", "Maurya");
-		// account1.deposit(300);
+		
 		try {
 		account1.withdraw(50);
 		}
@@ -17,7 +17,7 @@ public class AccountTest {
 		}
 		printInfo(account1);
 		System.out.println();
-		//printInfo(account2);
+		
 	}
 
 	static void printInfo(Account account) {
