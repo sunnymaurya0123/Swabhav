@@ -1,6 +1,6 @@
 package com.techlabs.student;
 
-public class Student {
+public class Student implements Comparable{
 	private int rollno;
 	private int standard;
 	private String name;
@@ -37,8 +37,13 @@ public class Student {
 	@Override
 	public boolean equals(Object obj) {
 		Student student = (Student) obj;
-		// if(this.rollno==student.rollno&&this.standard==student.standard)
 		return (this.getRollno() == student.getRollno()) && (this.getStandard() == student.getStandard());
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		
+		return 0;
 	}
 
 }
