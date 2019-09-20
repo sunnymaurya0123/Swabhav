@@ -1,5 +1,6 @@
 package com.techlabs.shoppingcart;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
@@ -9,6 +10,7 @@ public class Order {
 	private int itemCount;
 	
 	public Order(int id,String date) {
+		items=new ArrayList();
 		this.id=id;
 		this.date=date;
 		itemCount++;

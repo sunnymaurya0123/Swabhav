@@ -21,7 +21,7 @@ public class LineItem {
 		return quantity;
 	}
 
-	public Product getProduct() {
+	public  Product getProduct() {
 		return product;
 	}
 	
