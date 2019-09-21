@@ -51,7 +51,7 @@ public class TestShoppingCart {
 		
 		PrintWriter printWriter=new PrintWriter(file);
 		BufferedWriter bufferedWriter=new BufferedWriter(printWriter);
-		bufferedWriter.
+		
 	}
 
 	static void printInfo(Customer customer1) {
