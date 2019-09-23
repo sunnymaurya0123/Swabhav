@@ -11,7 +11,7 @@ public class Analyzer {
 	private Map<Employee,Employee> employeeList;
 	private double max;
 	public Analyzer(Parser parser) {
-		employeeList=parser.getEmployeeList();
+		employeeList=parser.parse();
 	}
 
 	public Employee getMaxSalariedEmployee() {
