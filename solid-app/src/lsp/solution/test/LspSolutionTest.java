@@ -1,16 +1,18 @@
-package lsp.violation.test;
+package lsp.solution.test;
 
-import lsp.violation.Rectangle;
+import lsp.solution.Rectangle;
 import lsp.violation.Square;
 
-public class LspViolationTest {
-	
+public class LspSolutionTest {
+
 	public static void main(String[] args) {
 		Rectangle rect=new Rectangle(20,30);
 		Square square=new Square(20);
-		shouldNotChangeHeightIfWidthChanges(square);
-		
+		shouldNotChangeHeightIfWidthChanges(rect);
+		//shouldNotChangeHeightIfWidthChanges(square);
+
 	}
+
 	static void shouldNotChangeHeightIfWidthChanges(Rectangle rect) {
 		int before=rect.getHeight();
 		rect.setWidth(rect.getWidth()+10);

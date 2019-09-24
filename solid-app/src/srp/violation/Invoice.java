@@ -26,7 +26,7 @@ public class Invoice {
 		return cost+calculateTax()-calculateDiscount();
 	}
 	
-	void print(Invoice invoice){
+	public void print(Invoice invoice){
 		System.out.println("Invoice id: "+invoice.id+"\nInvoice description: "+invoice.description+"\nCost: "
 				+invoice.cost+"\nDiscount Percent: "+invoice.discountPercent+"\nGST: "+invoice.GST+"\nDiscount price: "
 				+invoice.calculateDiscount()+"\nTax: "+invoice.calculateTax()+"\nTotal Amount: "+invoice.calculateTotal());

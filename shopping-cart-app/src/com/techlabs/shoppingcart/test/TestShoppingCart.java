@@ -6,8 +6,11 @@ import com.techlabs.shoppingcart.*;
 public class TestShoppingCart {
 	private static double totalCost;
 	private static double totalOrderCost;
+	//static StringBuilder stringBuilder=new StringBuilder();
 
 	public static void main(String[] args) throws IOException {
+		
+		
 		Product product1=new Product(101,"Book",100,20);
 		product1.calculateProductCost();
 		Product product2=new Product(102,"Pen",200,30);
@@ -36,38 +39,48 @@ public class TestShoppingCart {
 		
 		printInfo(customer1);
 		
-		String s;
-		File file=new File("Resources/invoice.html");
-		FileReader fileReader = new FileReader(file);
-		BufferedReader bufferReader = new BufferedReader(fileReader);
-		while ((s = bufferReader.readLine()) != null) {
-			//System.out.println(s);
-			if(s.contains("{name}")) {
-				s.replace("{name}", ""+totalCost);
-			}
-			System.out.println(s);	
-		}
-		bufferReader.close();
+//		String s;
+//		File file=new File("Resources/invoice.html");
+//		FileReader fileReader = new FileReader(file);
+//		BufferedReader bufferReader = new BufferedReader(fileReader);
+//		while ((s = bufferReader.readLine()) != null) {
+//			//System.out.println(s);
+//			if(s.contains("{name}")) {
+//				s.replace("{name}", ""+totalCost);
+//			}
+//			System.out.println(s);	
+//		}
+//		bufferReader.close();
 		
-		PrintWriter printWriter=new PrintWriter(file);
-		BufferedWriter bufferedWriter=new BufferedWriter(printWriter);
+//		PrintWriter printWriter=new PrintWriter(file);
+//		BufferedWriter bufferedWriter=new BufferedWriter(printWriter);
 		
 	}
 
 	static void printInfo(Customer customer1) {
-		
+		StringBuilder stringBuilder=new StringBuilder();
 		for(Order orders:customer1.getOrders()) {
 			System.out.println("At "+orders.getDate()+" "+customer1.getName()+" purhased these products:");
+			stringBuilder.append("<html><head><title>Invoice</title></head><body> <br>At "+orders.getDate()+" "+customer1.getName()+" purhased these products:");
 			System.out.println();
-			printProductDetails(orders,totalCost);
-			
-			
+			printProductDetails(orders,totalCost,stringBuilder);
 			System.out.println();
 		}
+		stringBuilder.append("<br>Total Amount Spent: "+totalOrderCost+"<br>");
 		System.out.println("Total Amount Spent: "+totalOrderCost);
+		
+		try {
+			FileWriter fileWriter=new FileWriter("Resources/invoice.html");
+			BufferedWriter bufferWriter=new BufferedWriter(fileWriter);
+			bufferWriter.write(stringBuilder.toString());
+			bufferWriter.close();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 	}
 
-	private static void printProductDetails(Order orders,double totalCost) {
+	private static void printProductDetails(Order orders,double totalCost,StringBuilder stringBuilder) {
 		
 		for(LineItem lineItems:orders.getItems()) {
 			
@@ -75,7 +88,11 @@ public class TestShoppingCart {
 			System.out.println("Product Id: "+lineItems.getProduct().getId()+" Product Name: "+lineItems.getProduct().getName()+
 					" Product Price: "+lineItems.getProduct().getPrice()+" Product discount: "+lineItems.getProduct().getDiscountPercent()
 					+" Product Quantity: "+lineItems.getQuantity()+" Total Product Cost: "+lineItems.calculateItemCost());
+			stringBuilder.append("<br>Product Id: "+lineItems.getProduct().getId()+" Product Name: "+lineItems.getProduct().getName()+
+					" Product Price: "+lineItems.getProduct().getPrice()+" Product discount: "+lineItems.getProduct().getDiscountPercent()
+					+" Product Quantity: "+lineItems.getQuantity()+" Total Product Cost: "+lineItems.calculateItemCost()+"<br>");
 		}
+		stringBuilder.append("<br>Total Amount paid: "+totalCost+" </body></html>");
 		System.out.println("Total Amount paid: "+totalCost);
 		totalOrderCost=totalOrderCost+totalCost;
 	}

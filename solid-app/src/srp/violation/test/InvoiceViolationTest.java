@@ -1,4 +1,6 @@
-package srp.violation;
+package srp.violation.test;
+
+import srp.violation.Invoice;
 
 public class InvoiceViolationTest {
 
