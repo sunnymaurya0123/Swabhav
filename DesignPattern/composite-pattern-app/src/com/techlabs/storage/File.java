@@ -14,7 +14,8 @@ public class File implements IStorageItem {
 	
 	@Override
 	public void display() {
-		System.out.println("File Name:"+name+"\nFile Size: "+size+"\nFile extension: "+extension);
+//		System.out.print("\t");
+		System.out.println("File Name:"+name+" File Size: "+size+" File extension: "+extension);
 		
 	}
 
