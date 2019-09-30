@@ -10,24 +10,28 @@ public class Board {
 	private void initializeCells() {
 		for(int i=0;i<cells.length;i++)
 			cells[i]=new Cell();
-//		for(Cell cell:cells)
-//			cell=new Cell();
-		
 	}
 
 	public boolean isEmpty() {
 		for(Cell cell:cells)
-			if(cell.getMark().equals(MarkType.E)) {
-				setMarkAtLocation();
+			if(cell.isEmpty())
 				return true;
-			}
 			else 
 				continue;
 		return false;
 	}
 
-	private void setMarkAtLocation() {
-		
-		
+	public void setMarkAtLocation(int location,Player player) {
+		try {
+			cells[location].setMark(player.getMark());
+		} catch(ArrayIndexOutOfBoundsException e){
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
 	}
+
+	public Cell[] getCells() {
+		return cells;
+	}
+	
 }

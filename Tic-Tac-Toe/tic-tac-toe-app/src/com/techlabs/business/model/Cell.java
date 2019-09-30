@@ -22,6 +22,13 @@ public class Cell {
 		this.mark = mark;
 	}
 	
-	
+	public boolean checkDuplicateCells(){
+		
+		if(!isEmpty()) 
+			return true;
+		
+		return false;
+		
+	}
 	
 }
