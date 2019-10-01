@@ -1,33 +1,28 @@
 package com.techlabs.gameframe;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import com.techlabs.business.model.Board;
-import com.techlabs.business.model.Cell;
 import com.techlabs.business.model.MarkType;
 import com.techlabs.business.model.Player;
-import com.techlabs.business.model.Result;
 import com.techlabs.business.model.ResultAnalyzer;
 import com.techlabs.presentation.model.Game;
 
-public class GameFrame extends JFrame implements ActionListener{
+public class GameFrame extends JFrame{
 
-	private static JButton[] buttons;
-	private static JLabel[] labels;
-	private static int n;
+	private JButton[] cellButtons;
+	private JLabel[] labels;
 	
 	public GameFrame() {
 		setTitle("Tic-Tac-Toe");
 		setSize(1024, 708);
 		getContentPane().setBackground(Color.YELLOW);
-		buttons=new JButton[9];
-		labels=new JLabel[4];
+		cellButtons=new JButton[9];
+		labels=new JLabel[7];
 		initializeComponents();
 		
 		setComponents();
@@ -38,24 +33,24 @@ public class GameFrame extends JFrame implements ActionListener{
 
 	private void setComponents() {
 		
-		buttons[0].setBounds(350, 200, 100, 100);
-		buttons[0].setText("0");
-		buttons[1].setBounds(450, 200, 100, 100);
-		buttons[1].setText("1");
-		buttons[2].setBounds(550, 200, 100, 100);
-		buttons[2].setText("2");
-		buttons[3].setBounds(350, 300, 100, 100);
-		buttons[3].setText("3");
-		buttons[4].setBounds(450, 300, 100, 100);
-		buttons[4].setText("4");
-		buttons[5].setBounds(550, 300, 100, 100);
-		buttons[5].setText("5");
-		buttons[6].setBounds(350, 400, 100, 100);
-		buttons[6].setText("6");
-		buttons[7].setBounds(450, 400, 100, 100);
-		buttons[7].setText("7");
-		buttons[8].setBounds(550, 400, 100, 100);
-		buttons[8].setText("8");
+		cellButtons[0].setBounds(350, 200, 100, 100);
+		cellButtons[0].setText("0");
+		cellButtons[1].setBounds(450, 200, 100, 100);
+		cellButtons[1].setText("1");
+		cellButtons[2].setBounds(550, 200, 100, 100);
+		cellButtons[2].setText("2");
+		cellButtons[3].setBounds(350, 300, 100, 100);
+		cellButtons[3].setText("3");
+		cellButtons[4].setBounds(450, 300, 100, 100);
+		cellButtons[4].setText("4");
+		cellButtons[5].setBounds(550, 300, 100, 100);
+		cellButtons[5].setText("5");
+		cellButtons[6].setBounds(350, 400, 100, 100);
+		cellButtons[6].setText("6");
+		cellButtons[7].setBounds(450, 400, 100, 100);
+		cellButtons[7].setText("7");
+		cellButtons[8].setBounds(550, 400, 100, 100);
+		cellButtons[8].setText("8");
 		
 		labels[0].setText("Welcome to TIC-TAC-TOE Game!!!");
 		labels[0].setBounds(400, 100, 200, 100);
@@ -70,7 +65,7 @@ public class GameFrame extends JFrame implements ActionListener{
 
 	private void addComponents() {
 		
-		for(JButton button:buttons)
+		for(JButton button:cellButtons)
 			add(button);
 		for(JLabel label:labels)
 			add(label);
@@ -87,37 +82,30 @@ public class GameFrame extends JFrame implements ActionListener{
 		ResultAnalyzer analyzer = new ResultAnalyzer(board);
 
 		Game game = new Game(players, board, analyzer);
-		
-		while (!game.getStatus().equals(Result.WIN) && !game.getStatus().equals(Result.DRAW)) {
-			System.out.println(game.getCurrentPlayer().getName() + " please Enter location: ");
-			try {
-				game.play(1);
-			} catch (RuntimeException e) {
-				System.out.println(e.getMessage());
-			}
-		}
 		game.swapPlayers();
+		EventHandler handler=new EventHandler(game,frame);
 		
-		labels[3].setText(game.getCurrentPlayer().getName());
-		labels[3].setBounds(860, 100, 200, 100);
-		frame.add(labels[3]);
+		
 	}
 	
 	private void initializeComponents() {
 		
-		for(int i=0;i<buttons.length;i++) {
-			buttons[i]=new JButton();
-			buttons[i].addActionListener(this);
+		for(int i=0;i<cellButtons.length;i++) {
+			cellButtons[i]=new JButton();
+			
 		}
 		
 		for(int i=0;i<labels.length;i++)
 			labels[i]=new JLabel();
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		for(JButton button:buttons)
-			if(e.getSource()==button)
-				n=Integer.parseInt(button.getText());
+	
+	public JButton[] getCellButtons() {
+		return cellButtons;
 	}
+
+	public JLabel[] getLabels() {
+		return labels;
+	}
+	
+	
 }
