@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <body>
+            <h1 id="demo">This is function statement</h1>
+            <h2 id="demos">This is function expression</h2>
+            <p id="hello"></p>
+            <script>
+                    function myFunction() {
+                       document.getElementById("demo").innerHTML = "Hello World!";
+                    }
+                myFunction();
+                var hello=function(){
+                    alert("Hello");
+                    document.getElementById("demos").innerHTML=hello();
+                };
+               var myObject={
+                   name:"Sunny",
+                   value:20
+               };
+               document.getElementById("hello").innerHTML="These are object literal values Name: "+myObject.name+" Value: "+myObject.value; 
+               console.log(myObject.name);
+               console.log(myObject.value);
+                console.log("Hello world!");
+                </script>
+      
+       
+    </body>
+</html>
