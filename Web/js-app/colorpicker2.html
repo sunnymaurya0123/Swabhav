@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+                Color picker 1
+        </title>
+    </head>
+    <body>
+        
+        <select id="colors" onchange="changeBackgroundColor()">
+            <option value='select'>--select--</option>
+            <option value='green'>Green</option>
+            <option value='cyan'>Cyan</option>
+            <option value='yellow'>Yellow</option>
+            <option value='#00FF00'>Light Green</option>
+            <option value='#66FFFF'>Light Cyan</option>
+            <option value='#FFFF66'>Light Yellow</option>
+        </select>
+    
+        <script>
+            var x= document.getElementById("colors")
+                function changeBackgroundColor(){
+                  
+                  var color=x.options[x.selectedIndex].value
+                  document.body.style.backgroundColor=color
+                    console.log(color);
+                }
+                x.options[x.options.length]=new Option('Blue','blue')
+            </script>
+    </body>
+</html>

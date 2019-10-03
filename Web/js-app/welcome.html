@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Welcome
+        </title>
+    </head>
+    <body>
+        <button onclick="f1(),f2()">
+            Click
+        </button>
+        <button id="button">
+            Click Me
+        </button>
+        <script>
+            function f1(){
+                console.log('f1')
+                
+            }
+            function f2(){
+                console.log('f2')
+            }
+            document.getElementById("button").addEventListener("click",f1)
+            document.getElementById("button").addEventListener("click",f2)
+        </script>
+    </body>
+</html>

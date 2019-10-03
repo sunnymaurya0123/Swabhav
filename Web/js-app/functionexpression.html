@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <title>
+                   Function Expression vs Function Statement
+                </title>
+            </head>
+    <body>
+           <h1 id="demo"></h1>
+           <h2 id="demos"></h2>
+            <p id="hello"></p>
+            <script>
+                //function statement
+                    function myFunction() {
+                       document.getElementById("demo").innerHTML = "This is function statement";
+                    }
+                myFunction();
+
+                //function expression
+                var hello=function(){
+                    alert("Hello");
+                   // document.getElementById("demos").innerHTML=hello();
+                };
+                document.getElementById("demos").innerHTML="This is function expression "+hello();
+                console.log("Hello world!");
+                </script>      
+    </body>
+</html>

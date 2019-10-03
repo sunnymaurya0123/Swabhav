@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Array of Functions
+        </title>
+    </head>
+    <body>
+        <p id="1"></p>
+        <p id="2"></p>
+        <p id="3"></p>
+        <p id="4"></p>
+        <p id="5"></p>
+        <p id="6"></p>
+        <script>
+            // debugger
+            products = [
+               function1,
+                function2,
+                function3
+            ];
+            function function1(){
+                document.getElementById("4").innerHTML="This is function1()."
+            }
+            function function2(){
+                document.getElementById("5").innerHTML="This is function2()."
+            }
+            function function3(){
+                document.getElementById("6").innerHTML="This is function3()."
+            }
+            
+            for(var element of products){
+            console.log(typeof element);
+            element();
+            }
+            // document.getElementById("1").innerHTML=products[0];
+            // document.getElementById("2").innerHTML=products[1];
+            // document.getElementById("3").innerHTML=products[2];
+        </script>
+    </body>
+</html>

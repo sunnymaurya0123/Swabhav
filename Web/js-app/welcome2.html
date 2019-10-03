@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Welcome2
+        </title>
+    </head>
+    <body>
+        <button  id="button1" >
+            Cyan
+        </button>
+        <button   id="button2">
+            Yellow
+        </button>
+
+        <script>
+            function f1(){
+                if(this.id=="button1")
+                document.body.style.backgroundColor='cyan';
+                if(this.id=="button2")
+                document.body.style.backgroundColor='yellow';
+                console.log("1");
+            }
+            document.getElementById("button1").addEventListener("click",f1)
+            document.getElementById("button2").addEventListener("click",f1)
+        </script>
+    </body>
+</html>

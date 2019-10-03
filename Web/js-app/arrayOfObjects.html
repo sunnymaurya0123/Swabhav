@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Array of Objects
+        </title>
+    </head>
+    <body>
+        <p id="1"></p>
+        <p id="2"></p>
+        <p id="3"></p>
+        <script>
+            products = [
+                {
+                    name: "chair",
+                    inventory: 5,
+                    unit_price: 45.99
+                },
+                {
+                    name: "table",
+                    inventory: 10,
+                    unit_price: 123.75
+                },
+                {
+                    name: "sofa",
+                    inventory: 2,
+                    unit_price: 399.50
+                }
+            ];
+            for(var element of products){
+            // document.getElementById("1").innerHTML=products[0].name+" "+products[0].inventory+" "+products[0].unit_price;
+            // document.getElementById("2").innerHTML=products[1].name+" "+products[1].inventory+" "+products[1].unit_price;
+            // document.getElementById("3").innerHTML=products[2].name+" "+products[2].inventory+" "+products[2].unit_price;
+            console.log(element.name+" "+element.inventory+" "+element.unit_price);
+            }
+        </script>
+    </body>
+</html>

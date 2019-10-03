@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Hoisting
+        </title>
+    </head>
+    <body>
+        <p id="1">hello</p>
+        <script>
+            x=5;
+            console.log(x);
+            //var x;
+
+            var z=3;
+            console.log(z);
+            console.log(a);
+            var a=2;
+           function function1(){
+                y=6;
+                var b=4;
+            }
+            function1();
+            console.log(y);
+            console.log(b);
+        </script>
+    </body>
+</html>

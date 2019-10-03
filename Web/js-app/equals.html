@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            == VS ===
+        </title>
+    </head>
+    <body>
+        <p>x=3 & y=2 & a='3'</p>
+        <p id="demo"></p>
+        <p id="demo1"></p>
+        <p id="1"></p>
+        <p id="2"></p>
+        <script>
+          var x=3;
+          var a="3";
+          var y=2;
+          var w=(x==a);
+          var z=(x==y);
+          var u=(x===y);
+          var v=(x===a);
+          document.getElementById("demo").innerHTML="x==y : "+z;
+          document.getElementById("demo1").innerHTML="x==a : "+w;
+          document.getElementById("1").innerHTML="x===y : "+u;
+          document.getElementById("2").innerHTML="x===a : "+v;
+        </script>
+    </body>
+</html>
