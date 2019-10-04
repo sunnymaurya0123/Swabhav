@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            BlueBall Game
+        </title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+        <style>
+                .button {
+                  background-color: gray;
+                  border: none;
+                  color: black;
+                  padding: 20px;
+                  text-align: center;
+                  /* text-decoration: none; */
+                  /* display: inline-block; */
+                  font-size: 12px;
+                  margin: 4px 2px;
+                  cursor: pointer;
+                }
+                
+                .button1 {
+                    background-color: cyan;
+                    border: none;
+                    color: black;
+                    padding: 20px;
+                    text-align: center;
+                    border-radius: 12px;
+                    }
+                .button2 {
+                    border-radius: 50%;
+                    }
+                .setblue{
+                    background-color: blue;
+                }
+                .setred{
+                    background-color: red;
+                }
+                .setgreen{
+                    background-color: green;
+                }
+                </style>
+                </head>
+    </head>
+    <body style="text-align: center;">
+        <h1 style="text-align: center"><b><i>Welcome to <span style="color: blue">BlueBall</span> Game</i></b></h1>
+        <div style="font-size: 125%; visibility: visible;" id="bodyDiv">
+            <ol style="text-align: left">
+                <li>Press 'OK' button to start the Game</li>
+                <li>After the game is launched you must know the following game rules to be followed</li>
+            </ol>
+            
+            <br style="text-align: left">The following Rules are: <br>
+           <ul style="list-style-type:square; text-align: left">
+            
+               <li> In this game your target is to find the "<span style="color: blue">Blue</span>" coloured ball</li>
+               <li> If you guessed the ball , then if that ball is not <span style="color: blue">Blue</span> then that ball is either marked as <span style="color:red">Red</span> or <span style="color:#00FF00">Green</span></li>
+               <li> If the ball is marked as <span style="color:red">Red</span> then it means that <span style="color: blue">Blue</span> ball will occur after that ball</li>
+               <li> If the ball is marked as <span style="color:#00FF00">Green</span> then it means that <span style="color: blue">Blue</span> ball will occur before that ball</li>
+               <li> If the guessed ball is already <span style="color: blue">Blue</span> ball then the game gets over</li>
+               <li> There are only 3 attempts allowed after 3 attempts the game will get over.</li>
+           </ul>
+           <button style="text-align: center" class="button1" onclick="setVisibility()">
+                OK
+            </button>
+        </div>
+        
+        <br>
+        <div style="visibility: hidden;" id="button">
+            
+        </div>
+        <script>
+            var randomNumber=Math.floor((Math.random() * 50) + 1)
+            var x=document.getElementById("button")
+            var y=document.getElementById("bodyDiv")
+            for(var i=1;i<=50;i++){
+                if(i%10==1)
+                x.innerHTML=x.innerHTML+"<br>"
+                var buttons=document.createElement("button")
+                buttons.innerText=i
+                buttons.setAttribute("class","button button2")
+                buttons.addEventListener("click",setButtonColor)
+                x.appendChild(buttons)
+            }
+            function setVisibility(){
+                if (x.style.visibility === 'hidden') {
+                    x.style.visibility = 'visible';
+                } 
+                if (y.style.visibility === 'visible') {
+                    y.style.visibility = 'hidden';
+                }
+            }
+            function setButtonColor(){
+                debugger
+                console.log(buttons.innerText)
+                if(buttons.innerText==randomNumber)
+                    buttons.setAttribute("class","setblue")
+                if(buttons.innerText>randomNumber)
+                    buttons.setAttribute("class","setgreen")
+                if(buttons.innerText<randomNumber)
+                    buttons.setAttribute("class","setred")
+            }
+        </script>
+    </body>
+</html>

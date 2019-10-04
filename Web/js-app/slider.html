@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Slider
+        </title>
+    </head>
+    <body style="text-align: center">
+        Range Slider<br>
+        <input type="range" min="1" max="100" value="50" id="range"><br>
+          Current Value:  <b id="demo"></b>
+
+        <div id="demo1">
+
+        </div>
+    <script>
+    
+        var slider = document.getElementById("range")
+        var output = document.getElementById("demo")
+        
+        output.innerHTML = slider.value
+        slider.addEventListener("input",f1)
+        
+        function f1(){
+            output.innerHTML = slider.value
+            var x=document.getElementById("demo1")
+            x.innerHTML="";
+            for(var i=1;i<=this.value;i++){
+           
+                var buttons=document.createElement("button")
+                buttons.innerText=i;
+                x.appendChild(buttons)
+                buttons.addEventListener("click",f2)   
+            }
+        }
+        function f2(){
+            alert("You pressed the number "+this.innerHTML)
+        }
+
+    </script>
+
+</body>
+</html>
