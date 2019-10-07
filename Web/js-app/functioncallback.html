@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Function CallBack
+        </title>
+    </head>
+    <body>
+        <h1>Function CallBack</h1>
+        <script>
+        function alertHello(callback){
+            alert("Hello")
+           
+            callback();
+        }
+        function alertSunny(){
+            alert("Sunny")
+        }
+        alertHello(alertSunny)
+        </script>
+    </body>
+</html>
