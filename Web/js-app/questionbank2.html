@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Question Bank
+        </title>
+    </head>
+    <body>
+        <div id="questions" style="visibility: visible">
+            <h1>Welcome to Quiz Game!!!</h1>
+            <p id="totalquestions"></p>
+            <p id="q"></p>
+            <form>
+                <input type="radio" style="vertical-align: auto" name="options"><span id="q0"></span><br>
+                <input type="radio" style="vertical-align: auto" name="options"><span id="q1"></span><br>
+                <input type="radio" style="vertical-align: auto" name="options"><span id="q2"></span><br>
+                <input type="radio" style="vertical-align: auto" name="options"><span id="q3"></span><br>
+            </form>
+            <button id="previousbutton" >
+                Previous
+            </button>
+            <button id="nextbutton" >
+                Next
+            </button>
+            <button style="visibility: hidden;" id="finishbutton">
+                Finish
+            </button>
+        </div>
+
+        <div style="visibility: hidden" id="scores">
+            <h1>Scores</h1>
+            <p><span id="answers0"></span> </p>
+            <p><span id="answers1"></span> </p>
+            <p><span id="answers2"></span> </p>
+            <p><span id="answers3"></span> </p>
+            <p><span id="answers4"></span> </p>
+            <p><span id="correctanswer"></span> </p>
+            <p><span id="wronganswer"></span> </p>
+
+        </div>
+        
+        <script>
+            var questionCounter=0
+            var correctAnswer=0
+            var nacounter=0;
+            var radiovalue
+            var userAnswers=[]
+            var questions=[
+                {
+                    id:1,
+                    text:'Who is the PM of India?',
+                    option:["Jawaharlal Nehru","Abdul Kalam","Indira Gandhi","Narendra Modi" ],
+                    answer: "Narendra Modi"
+                },
+                {
+                    id:2,
+                    text:'When did the Chandrayan 2s lander lost its connection?',
+                    option:["22th July 2019","23rd July 2019","2nd September 2019","2nd September 2018"],
+                    answer: "2nd September 2019"
+                },
+                {
+                    id:3,
+                    text:'Who developed Yahoo?',
+                    option:["David Filo & Jerry Yang","Dennis Ritchie & Ken Thompson", "Vint Cerf & Robert Kahn","Steve Case & Jeff Bezos"],
+                    answer: "David Filo & Jerry Yang"
+                },
+                {
+                    id:4,
+                    text:'Arrange in ascending order the units of memory TB, KB, GB, MB',
+                    option:["B>MB>GB>KB","TB>GB>MB>KB","MB>GB>TB>KB","GB>MB>KB>TB"],
+                    answer: "TB&gt;GB&gt;MB&gt;KB"
+                },
+                {
+                    id:5,
+                    text:'The setTimeout() belongs to which object?',
+                    option:["Element","Window","Location","None"],
+                    answer: "Window"
+                }
+            ]
+            document.getElementById("previousbutton").disabled=true
+            document.getElementById("nextbutton").addEventListener("click",()=>{
+                showQuestions()
+                document.getElementById("previousbutton").disabled=false
+                // initializeUncheckedRadioValue()
+                // displayRadioValue()
+            })
+            document.getElementById("finishbutton").addEventListener("click",()=>{
+                
+                // displayRadioValue()
+                setResultVisibility()
+                // initializeUncheckedRadioValue()
+                printUserAnswers()
+                increementAnswerCount()
+                printCounters()
+            })
+            function showQuestions(){
+                
+                displayRadioValue()
+                uncheckRadioValue()
+                document.getElementById("totalquestions").innerHTML=(questionCounter+1)+"/"+questions.length
+                if(questionCounter==questions.length-1)
+                    enableFinishButton()
+                if(questionCounter<questions.length){
+                    document.getElementById("q").innerHTML=questions[questionCounter].id+" "+questions[questionCounter].text
+                for(var i=0;i<questions[questionCounter].option.length ;i++)
+                    document.getElementById(`q${i}`).innerHTML=questions[questionCounter].option[i]
+                    questionCounter++
+                    
+                }
+            }
+            function showPrevQuestions(){
+                
+            }
+           function setResultVisibility(){
+            displayRadioValue()
+                    document.getElementById("questions").innerHTML=""
+                    document.getElementById("scores").style.visibility='visible'
+           }
+            function enableFinishButton(){
+                document.getElementById("nextbutton").parentNode.removeChild(document.getElementById("nextbutton"))
+                document.getElementById("finishbutton").style.visibility='visible'
+            }
+            function displayRadioValue(){
+                radiovalue=document.getElementsByName("options")
+                var checkedcounter=0
+                for(var i=0;i<radiovalue.length;i++){
+
+                    var answer=document.getElementById(`answers${i}`).innerHTML
+                    var optionselected=document.getElementById(`q${i}`).innerHTML
+                    
+                if(radiovalue[i].checked){
+                   answer=optionselected
+                   userAnswers.push(answer)
+                   checkedcounter++
+                   console.log(answer)
+                   console.log(userAnswers)
+                }
+                // document.getElementById(`answers${i}`).innerHTML=answer
+                
+                }
+                if(checkedcounter==0 && questionCounter>0){
+                   userAnswers.push("NA")
+                   nacounter++
+                }
+            }
+            
+            function printUserAnswers(){
+                for(var i=0;i<userAnswers.length;i++)
+                document.getElementById(`answers${i}`).innerHTML=userAnswers[i]
+            }
+            function increementAnswerCount(){
+                for(var i=0;i<userAnswers.length;i++)
+                if(userAnswers[i]==questions[i].answer)
+                   correctAnswer++  
+            }
+            function printCounters(){
+                document.getElementById("correctanswer").innerHTML="Correct Answers: "+correctAnswer
+                var wrongAnswer=questions.length-correctAnswer-nacounter
+                document.getElementById("wronganswer").innerHTML="Wrong Answers: "+wrongAnswer
+                console.log(questions.length)
+            }
+            function uncheckRadioValue(){
+                var optionelement=document.getElementsByName("options")
+                for(var i=0;i<optionelement.length;i++)
+                optionelement[i].checked=false
+            }
+            showQuestions();
+            
+        </script>
+    </body>
+</html>

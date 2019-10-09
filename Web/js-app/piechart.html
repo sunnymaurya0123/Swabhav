@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Pie Chart
+        </title>
+    </head>
+    <body>
+        <canvas id="canvas"> </canvas>
+        <script>
+            var canvas=document.getElementById("canvas")
+            canvas.width=300
+            canvas.height=300
+            var dimension=canvas.getContext("2d")
+
+            function drawLine(dimension,startX,startY,endX,endY){
+                dimension.beginPath()
+                dimension.moveTo(startX,startY)
+                dimension.lineTo(endX,endY)
+                dimension.stroke()
+            }
+            function drawArc(ctx, centerX, centerY, radius, startAngle, endAngle){
+                dimension.beginPath()
+                dimension.arc(centerX, centerY, radius, startAngle, endAngle)
+                dimension.stroke()
+            }
+            function drawPieSlice(ctx,centerX, centerY, radius, startAngle, endAngle, color ){
+                dimension.fillStyle = color
+                dimension.beginPath()
+                dimension.moveTo(centerX,centerY)
+                dimension.arc(centerX, centerY, radius, startAngle, endAngle)
+                dimension.closePath()
+                dimension.fill()
+            }
+            //drawLine(dimension,100,100,200,200)
+            drawArc(dimension, 150,150,150, 0, 2*Math.PI)
+            drawPieSlice(dimension, 150,150,150, Math.PI/2, Math.PI/2 + Math.PI/2, 'yellow')
+        </script>
+    </body>
+</html>

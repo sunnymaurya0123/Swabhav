@@ -27,5 +27,11 @@ class CellTest {
 		assertEquals(false,mark);
 		
 	}
+	
+	@Test
+	void testCheckDuplicateCells() {
+		boolean mark=cell[0].checkDuplicateCells();
+		assertEquals(false, mark);
+	}
 
 }
