@@ -2,24 +2,25 @@
 <html>
     <head>
         <title>
-            Question Bank
+            Question Bank 2
         </title>
     </head>
     <body>
         <div id="questions" style="visibility: visible">
             <h1>Welcome to Quiz Game!!!</h1>
             <p id="totalquestions"></p>
+            <p>Id: <span id="questionid"></span> </p>
             <p id="q"></p>
             <form>
-                <input type="radio" style="vertical-align: auto" name="options"><span id="q0"></span><br>
-                <input type="radio" style="vertical-align: auto" name="options"><span id="q1"></span><br>
-                <input type="radio" style="vertical-align: auto" name="options"><span id="q2"></span><br>
-                <input type="radio" style="vertical-align: auto" name="options"><span id="q3"></span><br>
+                <input id="radio0" type="radio" style="vertical-align: auto" name="options" onclick="storeValueOnRadioClick(this.value); saveState()"><span id="q0"></span><br>
+                <input id="radio1" type="radio" style="vertical-align: auto" name="options" onclick="storeValueOnRadioClick(this.value); saveState()"><span id="q1"></span><br>
+                <input id="radio2" type="radio" style="vertical-align: auto" name="options" onclick="storeValueOnRadioClick(this.value); saveState()"><span id="q2"></span><br>
+                <input id="radio3" type="radio" style="vertical-align: auto" name="options" onclick="storeValueOnRadioClick(this.value); saveState()"><span id="q3"></span><br>
             </form>
-            <button id="previousbutton" >
+            <button id="previousbutton" style="visibility: visible">
                 Previous
             </button>
-            <button id="nextbutton" >
+            <button id="nextbutton" style="visibility: visible">
                 Next
             </button>
             <button style="visibility: hidden;" id="finishbutton">
@@ -36,15 +37,20 @@
             <p><span id="answers4"></span> </p>
             <p><span id="correctanswer"></span> </p>
             <p><span id="wronganswer"></span> </p>
-
+            <p><span id="notselected"></span> </p>
         </div>
         
         <script>
             var questionCounter=0
             var correctAnswer=0
             var nacounter=0;
-            var radiovalue
+            var radiovalue=document.getElementsByName("options")
             var userAnswers=[]
+            var previousbutton=document.getElementById("previousbutton")
+            var nextbutton=document.getElementById("nextbutton")
+            var finishbutton=document.getElementById("finishbutton")
+            var questiontext=document.getElementById("q")
+            var totalquestions=document.getElementById("totalquestions")
             var questions=[
                 {
                     id:1,
@@ -68,7 +74,7 @@
                     id:4,
                     text:'Arrange in ascending order the units of memory TB, KB, GB, MB',
                     option:["B>MB>GB>KB","TB>GB>MB>KB","MB>GB>TB>KB","GB>MB>KB>TB"],
-                    answer: "TB&gt;GB&gt;MB&gt;KB"
+                    answer: "TB>GB>MB>KB"
                 },
                 {
                     id:5,
@@ -77,73 +83,120 @@
                     answer: "Window"
                 }
             ]
-            document.getElementById("previousbutton").disabled=true
-            document.getElementById("nextbutton").addEventListener("click",()=>{
-                showQuestions()
-                document.getElementById("previousbutton").disabled=false
-                // initializeUncheckedRadioValue()
-                // displayRadioValue()
+            for(var i=0;i<questions.length;i++)
+                userAnswers.push("NA")
+            var questionid=document.getElementById("questionid")
+            previousbutton.disabled=true
+
+            previousbutton.addEventListener("click",()=>{
+                showPrevQuestions()
             })
-            document.getElementById("finishbutton").addEventListener("click",()=>{
-                
-                // displayRadioValue()
+            nextbutton.addEventListener("click",()=>{
+                showQuestions()
+                previousbutton.disabled=false
+            })
+            finishbutton.addEventListener("click",()=>{
                 setResultVisibility()
-                // initializeUncheckedRadioValue()
                 printUserAnswers()
                 increementAnswerCount()
                 printCounters()
             })
             function showQuestions(){
                 
-                displayRadioValue()
+                questionid.innerHTML=questions[questionCounter].id
+                // storeRadioValue()
                 uncheckRadioValue()
-                document.getElementById("totalquestions").innerHTML=(questionCounter+1)+"/"+questions.length
+                totalquestions.innerHTML=(questionCounter+1)+"/"+questions.length
                 if(questionCounter==questions.length-1)
                     enableFinishButton()
                 if(questionCounter<questions.length){
-                    document.getElementById("q").innerHTML=questions[questionCounter].id+" "+questions[questionCounter].text
-                for(var i=0;i<questions[questionCounter].option.length ;i++)
+                    questiontext.innerHTML=questions[questionCounter].text
+                for(var i=0;i<questions[questionCounter].option.length ;i++){
                     document.getElementById(`q${i}`).innerHTML=questions[questionCounter].option[i]
+                    document.getElementById(`radio${i}`).value=questions[questionCounter].option[i]
+                    // console.log(document.getElementById(`radio${i}`).value)
+                }
                     questionCounter++
                     
                 }
             }
             function showPrevQuestions(){
-                
+                questionCounter-=2
+                questionid.innerHTML=questions[questionCounter].id
+                enableFinishButton()
+                totalquestions.innerHTML=(questionCounter+1)+"/"+questions.length
+                if(questionCounter<questions.length){
+                    questiontext.innerHTML=questions[questionCounter].text
+                for(var i=0;i<questions[questionCounter].option.length ;i++){
+                    document.getElementById(`q${i}`).innerHTML=questions[questionCounter].option[i]
+                    document.getElementById(`radio${i}`).value=questions[questionCounter].option[i]
+                }
+                    questionCounter++
+                }
+                if(questionCounter==1)
+                    previousbutton.disabled=true
             }
            function setResultVisibility(){
-            displayRadioValue()
+            // storeRadioValue()
                     document.getElementById("questions").innerHTML=""
                     document.getElementById("scores").style.visibility='visible'
            }
             function enableFinishButton(){
-                document.getElementById("nextbutton").parentNode.removeChild(document.getElementById("nextbutton"))
-                document.getElementById("finishbutton").style.visibility='visible'
+                // document.getElementById("nextbutton").parentNode.removeChild(document.getElementById("nextbutton"))
+                // document.getElementById("finishbutton").style.visibility='visible'
+                if(questionCounter==questions.length-1){
+                    nextbutton.style.visibility='hidden'
+                    finishbutton.style.visibility='visible'
+                }
+                if(questionCounter<questions.length-1){
+                    nextbutton.style.visibility='visible'
+                    finishbutton.style.visibility='hidden'
+                }
             }
-            function displayRadioValue(){
-                radiovalue=document.getElementsByName("options")
-                var checkedcounter=0
-                for(var i=0;i<radiovalue.length;i++){
 
-                    var answer=document.getElementById(`answers${i}`).innerHTML
-                    var optionselected=document.getElementById(`q${i}`).innerHTML
-                    
-                if(radiovalue[i].checked){
-                   answer=optionselected
-                   userAnswers.push(answer)
-                   checkedcounter++
-                   console.log(answer)
-                   console.log(userAnswers)
-                }
-                // document.getElementById(`answers${i}`).innerHTML=answer
-                
-                }
-                if(checkedcounter==0 && questionCounter>0){
-                   userAnswers.push("NA")
-                   nacounter++
+            function saveState(){
+                for(var i=0;i<radiovalue.length;i++){
+                var answer=document.getElementById(`answers${i}`).innerHTML
+                var optionselected=document.getElementById(`q${i}`).innerHTML
+                if(userAnswers[questionid.innerHTML-1]==optionselected){
+                    // console.log(userAnswers[i])
+                    radiovalue[i].checked=true
+                }   
                 }
             }
+            // function storeRadioValue(){
+            //     radiovalue=document.getElementsByName("options")
+            //     var checkedcounter=0
+            //     for(var i=0;i<radiovalue.length;i++){
+
+            //         var answer=document.getElementById(`answers${i}`).innerHTML
+            //         var optionselected=document.getElementById(`q${i}`).innerHTML
+                    
+            //     if(radiovalue[i].checked){
+            //        answer=optionselected
+            //        userAnswers.push(answer)
+            //        checkedcounter++
+            //        console.log(answer)
+            //        console.log(userAnswers)
+            //     }
+                
+                
+            //     }
+            //     if(checkedcounter==0 && questionCounter>0){
+            //        userAnswers.push("NA")
+            //        nacounter++
+            //     }
+            // }
             
+                function storeValueOnRadioClick(value){
+                    // console.log(userAnswers[questionid.innerHTML])
+                    
+                    delete userAnswers[questionid.innerHTML-1]
+                    userAnswers[questionid.innerHTML-1]=value
+                    
+                    // console.log(userAnswers[questionid.innerHTML])
+                }
+
             function printUserAnswers(){
                 for(var i=0;i<userAnswers.length;i++)
                 document.getElementById(`answers${i}`).innerHTML=userAnswers[i]
@@ -151,12 +204,16 @@
             function increementAnswerCount(){
                 for(var i=0;i<userAnswers.length;i++)
                 if(userAnswers[i]==questions[i].answer)
-                   correctAnswer++  
+                   correctAnswer++
+                for(var i=0;i<questions.length;i++)
+                    if(userAnswers[i]=='NA')
+                        nacounter++  
             }
             function printCounters(){
                 document.getElementById("correctanswer").innerHTML="Correct Answers: "+correctAnswer
                 var wrongAnswer=questions.length-correctAnswer-nacounter
                 document.getElementById("wronganswer").innerHTML="Wrong Answers: "+wrongAnswer
+                document.getElementById("notselected").innerHTML="Not Selected: "+nacounter
                 console.log(questions.length)
             }
             function uncheckRadioValue(){

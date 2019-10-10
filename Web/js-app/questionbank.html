@@ -4,8 +4,18 @@
         <title>
             Question Bank
         </title>
+        <style>
+            .button1 {
+                    border: none;
+                    color: black;
+                    padding: 20px;
+                    text-align: center;
+                    border-radius: 12px;
+                    }
+        </style>
     </head>
     <body>
+        
         <div id="questions" style="visibility: visible">
             <h1>Welcome to Quiz Game!!!</h1>
             
@@ -27,11 +37,11 @@
         <button id="nextbutton" style="visibility: visible">
             Next
         </button>
-        <button style="visibility: hidden;" id="finishbutton">
+        <button style="visibility: hidden; " id="finishbutton">
             Finish
         </button>
 
-        <div style="visibility: hidden" id="scores">
+        <div style="visibility: hidden; background-color: blanchedalmond" id="scores">
             <h1>Scores</h1>
             <p><span id="answers0"></span> </p>
             <p><span id="answers1"></span> </p>
@@ -40,9 +50,19 @@
             <p><span id="answers4"></span> </p>
             <p><span id="correctanswer"></span> </p>
             <p><span id="wronganswer"></span> </p>
-            
+            <p><span id="notselected"></span> </p>
+            Correct Answers  <button id="greenbutton" style="background-color: green" class="button1"></button><br>
+            Wrong Answers  <button id="redbutton" style="background-color: red" class="button1"></button><br>
+            Not Selected  <button id="yellowbutton" style="background-color: yellow" class="button1"></button><br>
+            <canvas id="myCanvas" style="align-content: center"></canvas>
         </div>
         <script>
+            document.getElementById("redbutton").innerHTML="."
+            document.getElementById("greenbutton").innerHTML="."
+            document.getElementById("yellowbutton").innerHTML="."
+            // document.getElementById("redbutton").innerText='hidden'
+            // document.getElementById("greenbutton").innerText.visibility='hidden'
+            // document.getElementById("yellowbutton").innerText.visibility='hidden'
             var questionCounter=0
             var correctAnswer=0
             var nacounter=0
@@ -77,62 +97,25 @@
                     option:["B>MB>GB>KB","TB>GB>MB>KB","MB>GB>TB>KB","GB>MB>KB>TB"],
                     answer: "TB&gt;GB&gt;MB&gt;KB"
                 },
-                // {
-                //     id:5,
-                //     text:'The setTimeout() belongs to which object?',
-                //     option:["Element","Window","Location","None"],
-                //     answer: "Window"
-                // }
+                {
+                    id:5,
+                    text:'The setTimeout() belongs to which object?',
+                    option:["Element","Window","Location","None"],
+                    answer: "Window"
+                }
             ]
             var questionid=document.getElementById("questionid")
             previousbutton.disabled=true
             previousbutton.addEventListener("click",()=>{
                 showPrevQuestions()
                 saveState()
-                console.log(questionid.innerHTML)
-                console.log(questions.length)
-                if(questionid.innerHTML==questions.length-1){
-                    console.log('1')
-                var checkedcounter=0                
-                for(var i=0;i<radiovalue.length;i++){
-                    var answer=document.getElementById(`answers${i}`).innerHTML
-                    var optionselected=document.getElementById(`q${i}`).innerHTML
-                    
-                    if(radiovalue[i].checked){
-                        // console.log(radiovalue[i])
-                    answer=optionselected
-                    console.log(answer)
-                    //    console.log(questionid.innerHTML)
-                    if(questionid.innerHTML<questions.length)
-                        userAnswers[questionid.innerHTML]=answer
-                    
-                    checkedcounter++
-                    //    console.log(answer)
-                    //    console.log(userAnswers)
-                    }
-                }
-                if(checkedcounter==0 && questionCounter>0){
-                   userAnswers.push("NA")
-                   nacounter++
-                }
-                for(var i=0;i<radiovalue.length;i++){
-
-                    var answer=document.getElementById(`answers${i}`).innerHTML
-                    var optionselected=document.getElementById(`q${i}`).innerHTML
-                    // console.log(userAnswers[i])
-                    if(userAnswers[questionid.innerHTML]==optionselected){
-                        console.log(userAnswers[i])
-                        radiovalue[i].checked=true
-                        // console.log(answer)
-                        // console.log(userAnswers)
-                    }   
-                }
+                if(questionid.innerHTML==questions.length){
+                    showQuestions()
+                    uncheckRadioValue()
                 }
             })
             nextbutton.addEventListener("click",()=>{
                 showQuestions()
-                
-
                 uncheckRadioValue()
                 previousbutton.disabled=false
             })
@@ -144,13 +127,9 @@
                     
                     if(radiovalue[i].checked){
                     answer=optionselected
-                    //    console.log(questionid.innerHTML)
                     if(questionid.innerHTML-1<=questions.length)
                         userAnswers[questionid.innerHTML-1]=answer
-                    
                     checkedcounter++
-                    //    console.log(answer)
-                    //    console.log(userAnswers)
                     }
                 }
                 if(checkedcounter==0 && questionCounter>0){
@@ -162,8 +141,8 @@
                 setResultVisibility()
                 printUserAnswers()
                 increementAnswerCount()
-                printCounters()                
-                // finishbutton.parentNode.removeChild(finishbutton)
+                printCounters()
+                drawPieChart()                
             })
 
             function showQuestions(){
@@ -194,21 +173,17 @@
                 }
             }
            function setResultVisibility(){
-                    for(var i=0;i<radiovalue.length;i++){
-                        var answer=document.getElementById(`answers${i}`).innerHTML
-                        var optionselected=document.getElementById(`q${i}`).innerHTML
-                        // console.log(userAnswers)
-                        if(radiovalue[i].checked){
-                        answer=optionselected
-                        // console.log(questionid.innerHTML)                       
-                        userAnswers[i]=answer
-                        // console.log(answer)
-                        // console.log(userAnswers)                        
-                        }
-                    }                    
-                    document.getElementById("questions").innerHTML=""
-                    finishbutton.parentNode.removeChild(finishbutton)
-                    document.getElementById("scores").style.visibility='visible'                    
+                for(var i=0;i<radiovalue.length;i++){
+                    var answer=document.getElementById(`answers${i}`).innerHTML
+                    var optionselected=document.getElementById(`q${i}`).innerHTML
+                    if(radiovalue[i].checked){
+                        answer=optionselected                      
+                        userAnswers[i]=answer                      
+                    }
+                }                    
+                document.getElementById("questions").innerHTML=""
+                finishbutton.parentNode.removeChild(finishbutton)
+                document.getElementById("scores").style.visibility='visible'                    
            }
             function enableFinishButton(){
                 if(questionCounter==questions.length-1){
@@ -229,12 +204,9 @@
                     
                     if(radiovalue[i].checked){
                     answer=optionselected
-                    //    console.log(questionid.innerHTML)
                     if(questionid.innerHTML-1<=questions.length)
                         userAnswers[questionid.innerHTML-2]=answer
                     checkedcounter++
-                    //    console.log(answer)
-                    //    console.log(userAnswers)
                     }
                 }
                 if(checkedcounter==0 && questionCounter>0){
@@ -247,12 +219,9 @@
 
                     var answer=document.getElementById(`answers${i}`).innerHTML
                     var optionselected=document.getElementById(`q${i}`).innerHTML
-                    // console.log(userAnswers[i])
                     if(userAnswers[questionid.innerHTML-1]==optionselected){
                         console.log(userAnswers[i])
                         radiovalue[i].checked=true
-                        // console.log(answer)
-                        // console.log(userAnswers)
                     }   
                 }    
             } 
@@ -267,16 +236,14 @@
             }
             function printCounters(){
                 document.getElementById("correctanswer").innerHTML="Correct Answers: "+correctAnswer
-                // console.log(nacounter)
                 wrongAnswer=questions.length-correctAnswer-nacounter
                 document.getElementById("wronganswer").innerHTML="Wrong Answers: "+wrongAnswer
-                // console.log(questions.length)
+                document.getElementById("notselected").innerHTML="Not Selected: "+nacounter
             }
 
             function uncheckRadioValue(){
                 var counter=0
                 for(var i=0;i<radiovalue.length;i++){
-                    // console.log(questionid.innerHTML)
                     var answer=document.getElementById(`answers${i}`).innerHTML
                     var optionselected=userAnswers[questionid.innerHTML-1]
                     console.log(userAnswers)
@@ -286,8 +253,6 @@
                         console.log(userAnswers)
                         radiovalue[i].checked=true
                         }
-                        // console.log(answer)
-                        // console.log(userAnswers)
                     }   
                 }
                     if(counter==0)
@@ -296,7 +261,45 @@
                         }               
             }
             showQuestions();
-            
+
+            function drawPieChart(){
+                var array=[correctAnswer,wrongAnswer,nacounter]
+                
+            var canvas=document.getElementById("myCanvas")
+                canvas.width=500
+                canvas.height=400
+            var dimension=canvas.getContext("2d")
+            var start_angle=0
+            var totalvalue=correctAnswer+wrongAnswer+nacounter
+            function drawPieSlice(dimension,centerX, centerY, radius, startAngle, endAngle, color ){
+                
+                for(var i=0;i<array.length;i++){
+                    dimension.fillStyle = color
+                    dimension.beginPath()
+                    dimension.moveTo(centerX,centerY)
+                    dimension.arc(centerX, centerY, radius, startAngle, endAngle)
+                    dimension.closePath()
+                    dimension.fill()
+                    val=array[i]
+                    slice_angle = 2 * Math.PI * val / totalvalue;
+                    var pieRadius = Math.min(canvas.width/2,canvas.height/2);
+                    var labelX = canvas.width/2 + (pieRadius / 2) * Math.cos(start_angle + slice_angle/2);
+                    var labelY = canvas.height/2 + (pieRadius / 2) * Math.sin(start_angle + slice_angle/2);
+
+                    var labelText = Math.round(100 * val / totalvalue);
+                    dimension.fillStyle = "black";
+                    dimension.font = "bold 20px Arial";
+                    dimension.fillText(labelText+"%", labelX,labelY);
+                    start_angle += slice_angle;
+                }   
+            }
+            drawPieSlice(dimension, 250,250,150, 0, 2*(correctAnswer/questions.length)*Math.PI, 'green')
+            drawPieSlice(dimension, 250,250,150, 2*(correctAnswer/questions.length)*Math.PI, 2*(correctAnswer/questions.length)*Math.PI+2*(wrongAnswer/questions.length)*Math.PI, 'red')
+            drawPieSlice(dimension, 250,250,150, 2*(correctAnswer/questions.length)*Math.PI+2*(wrongAnswer/questions.length)*Math.PI, 2*(correctAnswer/questions.length)*Math.PI+2*(wrongAnswer/questions.length)*Math.PI+2*(nacounter/questions.length)*Math.PI, 'yellow')         
+        }
+        </script>
+        <script>
+        
         </script>
     </body>
 </html>
