@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Storing Objects
+        </title>
+    </head>
+    <body>
+        <p id="result"></p>
+        <script>
+            var object
+            var myObject= {
+                sunny:{
+                    rollno: 38,
+                    name: "Sunny Maurya",
+                    cgpa: 7.3,
+                },
+                akash:{
+                    rollno: 21,
+                    name: "Akash Gupta",
+                    cgpa: 8.4,
+                },
+                ravi:{
+                    rollno: 35,
+                    name: "Ravi Maurya",
+                    cgpa: 9.5,
+                }   
+            }
+            storeCurrentSession()
+            for (x in object) {
+                document.getElementById("result").innerHTML += object[x].name+"<br>"+object[x].rollno+"<br>"+object[x].cgpa+"<br>";
+            }
+            //console.log(object)
+            function storeCurrentSession(){
+            if (typeof(Storage) !== "undefined") {
+                localStorage.setItem("storeobject",JSON.stringify(myObject))
+                object=JSON.parse(localStorage.getItem("storeobject"))
+                
+            } else {
+                document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
+            }
+            }
+        </script>
+    </body>
+</html>

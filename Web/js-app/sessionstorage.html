@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Session Storage
+        </title>
+    </head>
+    <body>
+        <button id="plus">
+            +
+        </button>
+        <button id="minus">
+            -
+        </button>
+        <p>Value: <span id="val"></span></p>
+        <p id="result"></p>
+        <script>
+            
+            var counter=sessionStorage.getItem("item")
+            var plusbutton=document.getElementById("plus")
+            var minusbutton=document.getElementById("minus")
+            var value=document.getElementById("val")
+            if(counter==null)
+            counter=0
+            value.innerHTML=counter
+            if(counter==0)
+                minusbutton.disabled=true
+            
+            plusbutton.addEventListener("click",increementCounter)
+            minusbutton.addEventListener("click",decreementCounter)
+            function increementCounter(){
+                counter++
+                minusbutton.disabled=false
+                value.innerHTML=counter
+                console.log(counter)
+                storeCurrentSession()
+            }
+            function decreementCounter(){
+                if(counter>0)
+                counter--
+                value.innerHTML=counter
+                console.log(counter)
+                storeCurrentSession()
+            }
+            function storeCurrentSession(){
+            if (typeof(Storage) !== "undefined") {
+                sessionStorage.setItem("item",counter)
+                
+            } else {
+                document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
+            }
+            }
+            
+        </script>
+    </body>
+</html>

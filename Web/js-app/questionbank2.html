@@ -12,10 +12,10 @@
             <p>Id: <span id="questionid"></span> </p>
             <p id="q"></p>
             <form>
-                <input id="radio0" type="radio" style="vertical-align: auto" name="options" onclick="storeValueOnRadioClick(this.value); saveState()"><span id="q0"></span><br>
-                <input id="radio1" type="radio" style="vertical-align: auto" name="options" onclick="storeValueOnRadioClick(this.value); saveState()"><span id="q1"></span><br>
-                <input id="radio2" type="radio" style="vertical-align: auto" name="options" onclick="storeValueOnRadioClick(this.value); saveState()"><span id="q2"></span><br>
-                <input id="radio3" type="radio" style="vertical-align: auto" name="options" onclick="storeValueOnRadioClick(this.value); saveState()"><span id="q3"></span><br>
+                <input id="radio0" type="radio" style="vertical-align: auto" name="options" onclick="storeValueOnRadioClick(this.value); "><span id="q0"></span><br>
+                <input id="radio1" type="radio" style="vertical-align: auto" name="options" onclick="storeValueOnRadioClick(this.value); "><span id="q1"></span><br>
+                <input id="radio2" type="radio" style="vertical-align: auto" name="options" onclick="storeValueOnRadioClick(this.value); "><span id="q2"></span><br>
+                <input id="radio3" type="radio" style="vertical-align: auto" name="options" onclick="storeValueOnRadioClick(this.value); "><span id="q3"></span><br>
             </form>
             <button id="previousbutton" style="visibility: visible">
                 Previous
@@ -38,11 +38,13 @@
             <p><span id="correctanswer"></span> </p>
             <p><span id="wronganswer"></span> </p>
             <p><span id="notselected"></span> </p>
+            <canvas id="myCanvas" style="align-content: center"></canvas>
         </div>
         
         <script>
             var questionCounter=0
             var correctAnswer=0
+            var wrongAnswer=0
             var nacounter=0;
             var radiovalue=document.getElementsByName("options")
             var userAnswers=[]
@@ -67,14 +69,20 @@
                 {
                     id:3,
                     text:'Who developed Yahoo?',
-                    option:["David Filo & Jerry Yang","Dennis Ritchie & Ken Thompson", "Vint Cerf & Robert Kahn","Steve Case & Jeff Bezos"],
-                    answer: "David Filo & Jerry Yang"
+                    option:["David Filo and Jerry Yang","Dennis Ritchie and Ken Thompson", "Vint Cerf and Robert Kahn","Steve Case and Jeff Bezos"],
+                    answer: "David Filo and Jerry Yang"
                 },
+               // {
+                 //   id:4,
+                   // text:'Arrange in ascending order the units of memory TB, KB, GB, MB',
+                   // option:["B>MB>GB>KB","TB>GB>MB>KB","MB>GB>TB>KB","GB>MB>KB>TB"],
+                   // answer: "TB>GB>MB>KB"
+                //},
                 {
                     id:4,
-                    text:'Arrange in ascending order the units of memory TB, KB, GB, MB',
-                    option:["B>MB>GB>KB","TB>GB>MB>KB","MB>GB>TB>KB","GB>MB>KB>TB"],
-                    answer: "TB>GB>MB>KB"
+                    text:'Who is the owner of super 30?',
+                    option:["Hritik roshan","Arun Kumar","Anand Kumar","Pranav Kumar"],
+                    answer:"Anand Kumar"
                 },
                 {
                     id:5,
@@ -90,9 +98,11 @@
 
             previousbutton.addEventListener("click",()=>{
                 showPrevQuestions()
+		        // saveState1()
             })
             nextbutton.addEventListener("click",()=>{
                 showQuestions()
+		        saveState()
                 previousbutton.disabled=false
             })
             finishbutton.addEventListener("click",()=>{
@@ -100,6 +110,7 @@
                 printUserAnswers()
                 increementAnswerCount()
                 printCounters()
+                drawPieChart()
             })
             function showQuestions(){
                 
@@ -132,9 +143,12 @@
                     document.getElementById(`radio${i}`).value=questions[questionCounter].option[i]
                 }
                     questionCounter++
-                }
+                }    
                 if(questionCounter==1)
                     previousbutton.disabled=true
+                    
+		        saveState()
+		
             }
            function setResultVisibility(){
             // storeRadioValue()
@@ -156,14 +170,37 @@
 
             function saveState(){
                 for(var i=0;i<radiovalue.length;i++){
-                var answer=document.getElementById(`answers${i}`).innerHTML
+                //var answer=document.getElementById(`answers${i}`).innerHTML
                 var optionselected=document.getElementById(`q${i}`).innerHTML
-                if(userAnswers[questionid.innerHTML-1]==optionselected){
-                    // console.log(userAnswers[i])
+                if(userAnswers[questionid.innerHTML-1]!="NA"){
+		if(userAnswers[questionid.innerHTML-1]==optionselected){
+			console.log(questionid.innerHTML-1)
                     radiovalue[i].checked=true
-                }   
+                }
+		}
+		else
+		    radiovalue[i].unchecked=true						
+		
+		  // radiovalue[i].unchecked=true
                 }
             }
+        //     function saveState1(){
+        //         for(var i=0;i<radiovalue.length;i++){
+        //         //var answer=document.getElementById(`answers${i}`).innerHTML
+        //         var optionselected=document.getElementById(`q${i}`).innerHTML
+        //         if(userAnswers[questionid.innerHTML-2]!="NA"){
+		// if(userAnswers[questionid.innerHTML-1]==optionselected){
+		// 	console.log(questionid.innerHTML-1)
+        //             radiovalue[i].checked=true
+        //         }
+		// }
+		// else
+		//     radiovalue[i].unchecked=true						
+		
+		//   // radiovalue[i].unchecked=true
+        //         }
+        //     }
+
             // function storeRadioValue(){
             //     radiovalue=document.getElementsByName("options")
             //     var checkedcounter=0
@@ -189,12 +226,13 @@
             // }
             
                 function storeValueOnRadioClick(value){
-                    // console.log(userAnswers[questionid.innerHTML])
+                     console.log(userAnswers[questionid.innerHTML-1])
                     
                     delete userAnswers[questionid.innerHTML-1]
                     userAnswers[questionid.innerHTML-1]=value
                     
-                    // console.log(userAnswers[questionid.innerHTML])
+                     console.log(userAnswers[questionid.innerHTML-1])
+		     console.log(userAnswers)
                 }
 
             function printUserAnswers(){
@@ -211,7 +249,7 @@
             }
             function printCounters(){
                 document.getElementById("correctanswer").innerHTML="Correct Answers: "+correctAnswer
-                var wrongAnswer=questions.length-correctAnswer-nacounter
+                wrongAnswer=questions.length-correctAnswer-nacounter
                 document.getElementById("wronganswer").innerHTML="Wrong Answers: "+wrongAnswer
                 document.getElementById("notselected").innerHTML="Not Selected: "+nacounter
                 console.log(questions.length)
@@ -222,7 +260,41 @@
                 optionelement[i].checked=false
             }
             showQuestions();
-            
+            function drawPieChart(){
+                var array=[correctAnswer,wrongAnswer,nacounter]
+                
+            var canvas=document.getElementById("myCanvas")
+                canvas.width=500
+                canvas.height=400
+            var dimension=canvas.getContext("2d")
+            var start_angle=0
+            var totalvalue=correctAnswer+wrongAnswer+nacounter
+            function drawPieSlice(dimension,centerX, centerY, radius, startAngle, endAngle, color ){
+                
+                for(var i=0;i<array.length;i++){
+                    dimension.fillStyle = color
+                    dimension.beginPath()
+                    dimension.moveTo(centerX,centerY)
+                    dimension.arc(centerX, centerY, radius, startAngle, endAngle)
+                    dimension.closePath()
+                    dimension.fill()
+                    val=array[i]
+                    slice_angle = 2 * Math.PI * val / totalvalue;
+                    var pieRadius = Math.min(canvas.width/2,canvas.height/2);
+                    var labelX = canvas.width/2 + (pieRadius / 2) * Math.cos(start_angle + slice_angle/2);
+                    var labelY = canvas.height/2 + (pieRadius / 2) * Math.sin(start_angle + slice_angle/2);
+
+                    var labelText = Math.round(100 * val / totalvalue);
+                    dimension.fillStyle = "black";
+                    dimension.font = "bold 20px Arial";
+                    dimension.fillText(labelText+"%", labelX,labelY);
+                    start_angle += slice_angle;
+                }   
+            }
+            drawPieSlice(dimension, 250,250,150, 0, 2*(correctAnswer/questions.length)*Math.PI, 'green')
+            drawPieSlice(dimension, 250,250,150, 2*(correctAnswer/questions.length)*Math.PI, 2*(correctAnswer/questions.length)*Math.PI+2*(wrongAnswer/questions.length)*Math.PI, 'red')
+            drawPieSlice(dimension, 250,250,150, 2*(correctAnswer/questions.length)*Math.PI+2*(wrongAnswer/questions.length)*Math.PI, 2*(correctAnswer/questions.length)*Math.PI+2*(wrongAnswer/questions.length)*Math.PI+2*(nacounter/questions.length)*Math.PI, 'yellow')         
+        }
         </script>
     </body>
 </html>

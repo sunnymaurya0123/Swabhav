@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Ajax
+        </title>
+    </head>
+    <body>
+        <button id="button">
+            Click
+        </button>
+        <p id="result"></p>
+        <script>
+            document.getElementById("button").addEventListener("click",load)
+            function load(){
+                var xhttp = new XMLHttpRequest()
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("result").innerHTML =
+                        this.responseText;
+                    }
+                };
+                xhttp.open("GET","name.txt",true)
+                xhttp.send()
+            }
+        </script>
+    </body>
+</html>
