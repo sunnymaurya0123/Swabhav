@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Slider
+        </title>
+        <script src="jquery.js"></script>
+    </head>
+    <body style="text-align: center">
+        Range Slider<br>
+        <input type="range" min="1" max="100" value="50" id="range" oninput="createButtons()"><br>
+          Current Value:  <b id="demo"></b>
+        <div id="demo1"></div>
+        <script>
+            var slider = $("#range")
+            var output = $("#demo")
+            output.text(slider.val())
+            function createButtons(){
+                output.text(slider.val())
+                var x=$("#demo1")
+                x.empty()
+                for(var i=1;i<=slider.val();i++)
+                    x.append(`<button id="buttons${i}" onclick="showButtonNumber(${i})">${i}</button>`)
+                }
+            function showButtonNumber(i){
+                alert("You pressed the number "+$(`#buttons${i}`).text())
+            }
+        </script>
+    </body>
+</html>

@@ -2,19 +2,27 @@
 <html>
     <head>
         <title>
-            Welcome2
+            Welcome 2
         </title>
     </head>
     <script src="jquery.js"></script>
     <body>
-        <button  id="button1" >
+        <button  id="button1">
             Cyan
         </button>
         <button   id="button2">
             Yellow
         </button>
         <script>
-            
+            $("#button1").click(function(){
+                changeColor("cyan")
+            })
+            $("#button2").click(function(){
+                changeColor("yellow")
+            })
+            function changeColor(color){
+                $("body").css("background-color",color);
+            }
         </script>
     </body>
 </html>

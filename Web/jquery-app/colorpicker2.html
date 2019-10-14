@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+                Color picker 2
+        </title>
+        <script src="jquery.js"></script>
+    </head>
+    <body>
+        <select id="colors" onchange="changeBackgroundColor()"></select>
+        <script>
+                function changeBackgroundColor(){
+                    $("body").css("background-color",$("#colors option:selected").val())
+                }
+                function addElements(){
+                var values=['---select---','green','cyan','yellow','blue','purple']
+                
+                for(var element of values){
+                    if(element=="---select---")
+                        $("#colors").append(new Option(element,"white"))
+                    else
+                        $("#colors").append(new Option(element,element))
+                    }
+                }
+                addElements();
+            </script>
+    </body>
+</html>
