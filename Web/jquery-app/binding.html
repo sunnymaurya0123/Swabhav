@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Binding
+        </title>
+        <script src="jquery.js"></script>
+        <script>
+            $(document).ready(function(){
+                var values=['---select---','green','cyan','yellow','blue','purple']
+                for(var element of values){
+                    if(element=="---select---"){
+                        $("#bgcolor").append(new Option(element,"white"))
+                        $("#fontcolor").append(new Option(element,"white"))
+                    }
+                    else{
+                        $("#bgcolor").append(new Option(element,element))
+                        $("#fontcolor").append(new Option(element,element))
+                    }
+                    }
+                })
+        </script>
+    </head>
+    <body>
+        Text: <input type="text" id="textbox"><br><br>
+        Text-Background Color: <select id="bgcolor"></select><br><br>
+        Font Color: <select id="fontcolor"></select><br><br>
+        Font Size: <input type="number" id="fontsize"><br><br>
+        Entered Text: <span id="enteredtext"></span>
+        <script>
+            $("#textbox").on("input", function(){
+                $("#enteredtext").html($(this).val())
+            });
+
+            $("#bgcolor").on("change",function(){
+                $("#enteredtext").css("background-color",$("#bgcolor option:selected").val())
+            })
+
+            $("#fontcolor").on("change",function(){
+                $("#enteredtext").css("color",$("#fontcolor option:selected").val())
+            })
+
+            $("#fontsize").on("input",function(){
+                $("#enteredtext").css("font-size",$(this).val()+"px")
+            })
+        </script>
+    </body>
+
+</html>

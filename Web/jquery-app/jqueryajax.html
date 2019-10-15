@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Ajax in JQuery
+        </title>
+        <script src="jquery.js"></script>
+    </head>
+    <body>
+        <button id="button">
+            Click
+        </button>
+        <p id="result"></p>
+        <script>
+            $("#button").click(displayData)
+            function displayData(){
+                $.get( "hello.txt", function( data ) {
+                    var lines=data.split(",")
+                    $.each(lines,function(index,item){
+                        console.log(index+": "+item)
+                        $("#result").append(item+"<br>")
+                    })
+                });
+            }
+        </script>
+    </body>
+</html>

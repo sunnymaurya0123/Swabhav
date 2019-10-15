@@ -13,10 +13,10 @@
             <p>Id: <span id="questionid"></span> </p>
             <p id="q"></p>
             <form>
-                <input id="radio0" type="radio" style="vertical-align: auto" name="options" onclick="storeValueOnRadioClick(this.value); "><span id="q0"></span><br>
-                <input id="radio1" type="radio" style="vertical-align: auto" name="options" onclick="storeValueOnRadioClick(this.value); "><span id="q1"></span><br>
-                <input id="radio2" type="radio" style="vertical-align: auto" name="options" onclick="storeValueOnRadioClick(this.value); "><span id="q2"></span><br>
-                <input id="radio3" type="radio" style="vertical-align: auto" name="options" onclick="storeValueOnRadioClick(this.value); "><span id="q3"></span><br>
+                <input id="radio0" type="radio" style="vertical-align: auto" class="options"><span id="q0"></span><br>
+                <input id="radio1" type="radio" style="vertical-align: auto" class="options"><span id="q1"></span><br>
+                <input id="radio2" type="radio" style="vertical-align: auto" class="options"><span id="q2"></span><br>
+                <input id="radio3" type="radio" style="vertical-align: auto" class="options"><span id="q3"></span><br>
             </form>
             <button id="previousbutton">
                 Previous
@@ -39,7 +39,8 @@
             <p><span id="correctanswer"></span> </p>
             <p><span id="wronganswer"></span> </p>
             <p><span id="notselected"></span> </p>
-            <canvas id="myCanvas" style="align-content: center"></canvas>
+            <div id="piechart"></div>
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         </div>
         
         <script>
@@ -48,7 +49,7 @@
             var wrongAnswer=0
             var nacounter=0
             var userAnswers=[]
-            var radiovalue=$("#options")
+            var radiovalue=$(".options")
             var previousbutton=$("#previousbutton")
             var nextbutton=$("#nextbutton")
             var finishbutton=$("#finishbutton")
@@ -96,7 +97,6 @@
             })
             nextbutton.click(()=>{
                 showQuestions()
-		        saveState()
                 previousbutton.prop("disabled",false)
             })
             finishbutton.click(()=>{
@@ -104,14 +104,31 @@
                 printUserAnswers()
                 increementAnswerCount()
                 printCounters()
-                // drawPieChart() 
+                // drawPieChart()
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+
+                // Draw the chart and set the chart values
+                function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                ['Task', 'questions.length'],
+                ['Correct', correctAnswer],
+                ['Wrong', wrongAnswer],
+                ['Not Selected', nacounter],
+                ]);
+
+                // Optional; add a title and set the width and height of the chart
+                var options = {'title':'Your Score', 'width':550, 'height':400};
+
+                // Display the chart inside the <div> element with id="piechart"
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+                } 
             })
             function showQuestions(){
-                // console.log(questions[questionCounter].id)
                 if(questionCounter==questions.length-1)
                     enableFinishButton()
                 questionid.html(questions[questionCounter].id)
-                uncheckRadioValue()
                 totalquestions.html((questionCounter+1)+"/"+questions.length)
                 if(questionCounter<questions.length){
                     questiontext.html(questions[questionCounter].text)
@@ -121,6 +138,12 @@
                 }
                     questionCounter++
                 }
+
+                uncheckRadioValue()
+                if(userAnswers[questionid.text()-1]!="NA")
+                for(var i=0;i<radiovalue.length;i++)
+                if($(`#q${i}`).text()==userAnswers[questionid.text()-1])
+                radiovalue[i].checked=true
             }
             function showPrevQuestions(){
                 questionCounter-=2
@@ -137,7 +160,12 @@
                 }    
                 if(questionCounter==1)
                     previousbutton.prop("disabled",true)
-		        saveState()
+
+                uncheckRadioValue()
+                if(userAnswers[questionid.text()-1]!="NA")
+                for(var i=0;i<radiovalue.length;i++)
+                if($(`#q${i}`).text()==userAnswers[questionid.text()-1])
+                radiovalue[i].checked=true
             }
            function setResultVisibility(){
                     $("#questions").html("")
@@ -145,39 +173,23 @@
            }
             function enableFinishButton(){
                 if(questionCounter==questions.length-1){
-                    console.log("hh")
                     finishbutton.show()
                     nextbutton.hide()
                 }
                 if(questionCounter<questions.length-1){
-                    console.log("hhh")
                     finishbutton.hide()
                     nextbutton.show()
                 }
             }
-
-            function saveState(){
+            
+            $(".options").click(function(){
+                $(".options").not(this).prop("checked",false)
                 for(var i=0;i<radiovalue.length;i++){
-                var optionselected=$(`#q${i}`).innerHTML
-                if(userAnswers[questionid.html()-1]!="NA"){
-                if(userAnswers[questionid.html()-1]==optionselected){
-                    console.log(questionid.html()-1)
-                    radiovalue[i].attr('checked', true)
+                    if(radiovalue[i].checked)
+                        userAnswers[questionid.text()-1]=$(`#q${i}`).text()
+                console.log(userAnswers)
                 }
-		}
-		else
-		    radiovalue[i].attr('unchecked', true)						
-                }
-            }
-                function storeValueOnRadioClick(value){
-                     console.log(userAnswers[questionid.html()-1])
-                    
-                    delete userAnswers[questionid.html()-1]
-                    userAnswers[questionid.html()-1]=value
-                    
-                     console.log(userAnswers[questionid.html()-1])
-		     console.log(userAnswers)
-                }
+            })
 
             function printUserAnswers(){
                 for(var i=0;i<userAnswers.length;i++)
@@ -199,46 +211,11 @@
                 console.log(questions.length)
             }
             function uncheckRadioValue(){
-                var optionelement=$("#options")
+                var optionelement=$(".options")
                 for(var i=0;i<optionelement.length;i++)
-                optionelement[i].attr('checked', true)
+                optionelement[i].checked=false
             }
             showQuestions();
-        //     function drawPieChart(){
-        //         var array=[correctAnswer,wrongAnswer,nacounter]
-                
-        //     var canvas=document.getElementById("myCanvas")
-        //         canvas.width=500
-        //         canvas.height=400
-        //     var dimension=canvas.getContext("2d")
-        //     var start_angle=0
-        //     var totalvalue=correctAnswer+wrongAnswer+nacounter
-        //     function drawPieSlice(dimension,centerX, centerY, radius, startAngle, endAngle, color ){
-                
-        //         for(var i=0;i<array.length;i++){
-        //             dimension.fillStyle = color
-        //             dimension.beginPath()
-        //             dimension.moveTo(centerX,centerY)
-        //             dimension.arc(centerX, centerY, radius, startAngle, endAngle)
-        //             dimension.closePath()
-        //             dimension.fill()
-        //             val=array[i]
-        //             slice_angle = 2 * Math.PI * val / totalvalue;
-        //             var pieRadius = Math.min(canvas.width/2,canvas.height/2);
-        //             var labelX = canvas.width/2 + (pieRadius / 2) * Math.cos(start_angle + slice_angle/2);
-        //             var labelY = canvas.height/2 + (pieRadius / 2) * Math.sin(start_angle + slice_angle/2);
-
-        //             var labelText = Math.round(100 * val / totalvalue);
-        //             dimension.fillStyle = "black";
-        //             dimension.font = "bold 20px Arial";
-        //             dimension.fillText(labelText+"%", labelX,labelY);
-        //             start_angle += slice_angle;
-        //         }   
-        //     }
-        //     drawPieSlice(dimension, 250,250,150, 0, 2*(correctAnswer/questions.length)*Math.PI, 'green')
-        //     drawPieSlice(dimension, 250,250,150, 2*(correctAnswer/questions.length)*Math.PI, 2*(correctAnswer/questions.length)*Math.PI+2*(wrongAnswer/questions.length)*Math.PI, 'red')
-        //     drawPieSlice(dimension, 250,250,150, 2*(correctAnswer/questions.length)*Math.PI+2*(wrongAnswer/questions.length)*Math.PI, 2*(correctAnswer/questions.length)*Math.PI+2*(wrongAnswer/questions.length)*Math.PI+2*(nacounter/questions.length)*Math.PI, 'yellow')         
-        // }
         </script>
     </body>
 </html>

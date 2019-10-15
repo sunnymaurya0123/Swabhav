@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Students API
+        </title>
+        <script src="jquery.js"></script>
+        <style>
+            table, th, td {
+                border: 1px solid greenyellow;
+            }
+        </style>
+        <script>
+            var link="http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students"
+            $(document).ready(function(){
+                $.get(link,function(data){
+                    console.log(data[0])
+                    $("#count").html(data.length)
+                    var gender
+
+                    for(var i=0;i<data.length;i++){
+                    if(data[i].isMale)
+                        gender="male"
+                    else
+                        gender="female"
+                    $("#tableid").append(`<tr><td>${data[i].id}</td><td>${data[i].name}</td>
+                                          <td>${data[i].rollNo}</td><td>${data[i].age}</td><td>${data[i].email}</td>
+                                          <td>${data[i].date}</td><td>${gender}</td>`)
+                    }
+                })
+                console.log($("#name").text())
+                // $.put(link,{"id":"","rollNo":"","name":"","age":"","email":"","date":"","isMale":""});
+                $("#button").click(function(){
+                    $.ajax({
+                    url: link,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {"id":$("#name").val(),"rollNo":$("#rollno").val(),"name":$("#name").val(),
+                    "age":$("#age").val(),"email":$("#email").val(),"date":$("#date").val(),"isMale":($("#genders").val()==="male"?"true":"false")},
+                    success: function(data) {
+                        console.log(data)
+                    }
+                })
+                })
+                
+                
+            })
+        </script>
+    </head>
+    <body>
+        Number of Students: <span id="count"></span><br><br>
+        <div style="border: 2px solid rgb(3, 255, 3);">
+                <br>
+            &nbsp;&nbsp;&nbsp;Name: <input type="text" id="name"><br><br>
+            &nbsp;&nbsp;&nbsp;Roll Number: <input type="number" id="rollno"><br><br>
+            &nbsp;&nbsp;&nbsp;Age: <input type="number" id="age"><br><br>
+            &nbsp;&nbsp;&nbsp;Email: <input type="text" id="email"><br><br>
+            &nbsp;&nbsp;&nbsp;Date: <input type="date" id="date"><br><br>
+            &nbsp;&nbsp;&nbsp;Gender: <input type="radio" id="genders" name="gender" value="male"> Male   <input type="radio" id="genders" name="gender" value="female"> Female<br>
+            &nbsp;&nbsp;&nbsp;<button id="button">Add Student</button><br><br>
+        </div>
+        <br><br>
+        <div>
+        <table id="tableid">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Roll No.</th>
+                <th>Age</th>
+                <th>Email</th>
+                <th>Date</th>
+                <th>Gender</th>
+            </tr>
+        </table>
+        </div>
+        <script>
+            
+            
+        </script>
+    </body>
+</html>

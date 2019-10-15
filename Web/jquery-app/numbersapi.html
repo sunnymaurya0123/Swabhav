@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Numbers API
+        </title>
+        <script src="jquery.js"></script>
+    </head>
+    <body>
+        Enter Number: <input type="number" id="number"><br><br>
+        <button id="button">Find Facts</button><br><br>
+        <div id="result"></div>
+        <script>
+            $("#button").click(function(){
+                $.get(`http://numbersapi.com/${$("#number").val()}`,function(data){
+                    $("#result").append(data+"<br>")
+                })
+            })
+        </script>
+    </body>
+</html>
