@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            ng-repeat
+        </title>
+        <script src="angular.js"></script>
+    </head>
+    <body ng-app="modA" ng-controller="controllerA">
+
+        <h1 ng-repeat="eachrecord in records">{{eachrecord}}</h1>
+
+        <script>
+        var module1 = angular.module("modA", []);
+        module1.controller("controllerA", function($scope) {
+        $scope.records = [
+            "Sunny Maurya",
+            "Akash Gupta",
+            "Ravi Maurya",
+            "Floyd D'Silva",
+        ]
+        })
+        </script>
+
+    </body>
+</html>

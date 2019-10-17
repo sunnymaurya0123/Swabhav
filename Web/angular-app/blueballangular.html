@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Blueball Game
+        </title>
+        <script src="angular.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    </head>
+    <body style="text-align: center; background-color: khaki">
+        <h1 style="text-align: center"><b><i>Welcome to <span style="color: blue">BlueBall</span> Game</i></b></h1>
+        <div ng-app="modA" ng-controller="rulesController">
+        <div ng-show="IsVisible" style="font-size: 125%" id="bodyDiv">
+            <ol style="text-align: left">
+                <li>Press 'OK' button to start the Game</li>
+                <li>After the game is launched you must know the following game rules to be followed</li>
+            </ol>
+            
+            <br style="text-align: left">The following Rules are: <br>
+            <ul style="list-style-type:square; text-align: left">
+            
+                <li> In this game your target is to find the "<span style="color: blue">Blue</span>" coloured ball</li>
+                <li> If you guessed the ball , then if that ball is not <span style="color: blue">Blue</span> then that ball is either marked as <span style="color:red">Red</span> or <span style="color:#00FF00">Green</span></li>
+                <li> If the ball is marked as <span style="color:red">Red</span> then it means that <span style="color: blue">Blue</span> ball will occur after that ball</li>
+                <li> If the ball is marked as <span style="color:#00FF00">Green</span> then it means that <span style="color: blue">Blue</span> ball will occur before that ball</li>
+                <li> If the guessed ball is already <span style="color: blue">Blue</span> ball then the game gets over</li>
+                <li> There are only 3 attempts allowed after 3 attempts the game will get over.</li>
+            </ul>
+            <button style="text-align: center" class="button1" ng-click="startGame()">
+                OK
+            </button>
+        </div> 
+        
+        <div ng-controller="gameController" ng-show="hideGame" id="buttons">
+            
+            <button id="restart" class="button button1">
+                RESTART
+            </button>
+            <p>Attempts: <b id="attempts"></b></p>
+            <p style="text-align: left">Time Taken: <span id="timetaken"></span></p>
+                <p id="gameover"></p><br>
+                You have only 10 seconds to play this game<br><br>
+                <span ng-init="numbers" ng-repeat="x in numbers"><button id="button{{x}}">{{x}}</button></span>
+            </div>
+        </div>
+    </div>
+
+        <script>
+            var module1 = angular.module("modA", []);
+            module1.controller("rulesController", function($scope) {
+                $scope.IsVisible=true
+                $scope.hideGame=false
+
+                $scope.startGame=function(){
+                    $scope.IsVisible=false
+                    $scope.hideGame=true
+                }
+
+            })
+
+            module1.controller("gameController",function($scope){
+                $scope.numbers=[]
+                for(var i=0;i<50;i++)
+                $scope.numbers.push(i)
+            })
+        </script>
+    </body>
+</html>

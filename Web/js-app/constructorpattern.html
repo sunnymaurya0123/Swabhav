@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Constructor Pattern
+        </title>
+    </head>
+    <body>
+        <script>
+            function Car(model, year, miles) {
+
+                this.model = model;
+                this.year = year;
+                this.miles = miles;
+
+                this.toString = function () {
+                    return this.model + " has done " + this.miles + " miles";
+                }
+            }
+            // Car.prototype.toString = function () {
+            //     return this.model + " has done " + this.miles + " miles";
+            // }
+            var audi = new Car( "Audi", 2009, 20000 );
+            var Lamborghini = new Car( "Lamborghini", 2010, 5000 );
+
+            console.log(audi.toString())
+            console.log(Lamborghini.toString())
+        </script>
+    </body>
+</html>

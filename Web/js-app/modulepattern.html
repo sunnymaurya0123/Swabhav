@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Module Pattern
+        </title>
+    </head>
+    <body>
+        <script>
+            var module1=(function(){
+                var _color='red'
+                var _name='sunny'
+                var _rollNo
+
+                function setRollNo(number){
+                    _rollNo=number
+                }
+                return{
+                    getRollNo: function(number){
+                        setRollNo(number)
+                        return _rollNo
+                    }
+                }
+            })()
+
+            console.log(module1.getRollNo(36))
+            console.log(module1.color)
+        </script>
+    </body>
+</html>
