@@ -9,15 +9,16 @@
     <body>
         <div ng-app="modA" ng-controller="controllerA">
             Text: <input type="text" id="textbox" ng-model="text" ><br><br>
-            Text-Background Color: <select id="bgcolor" ng-model="option" ng-options="c.name for c in values" ng-change="changeBgColor()"></select><br><br>
-            Font Color: <select id="fontcolor" ng-model="font" ng-options="c.name for c in values" ng-change="changeFontColor()"></select><br><br>
-            Font Size: <input type="number" id="fontsize" ><br><br>
-            Entered Text: <span ng-style="bgcolor">{{text}}</span>
+            Text-Background Color: <select ng-model="option" ng-options="c.name for c in values" ng-change="changeBgColor()"></select><br><br>
+            Font Color: <select ng-model="font" ng-options="c.name for c in values" ng-change="changeFontColor()"></select><br><br>
+            Font Size: <input type="number" id="fontsize" ng-model="size"><br><br>
+            Entered Text: <span ng-style="{'background-color':bgcolor, 'color':fontcolor,'font-size':size+'px'}">{{text}}</span>
         </div>
         <script>
             var module=angular.module("modA",[])
             module.controller("controllerA",function($scope){
                 $scope.text=""
+                $scope.size=""
                 $scope.values=[
                     {name:"---select---", value:"white"},
                     {name:"Green", value:"green"},
@@ -30,15 +31,10 @@
                 $scope.font=$scope.values[0]
 
                 $scope.changeBgColor=function(){
-                    console.log($scope.option.value)
-                    $scope.bgcolor={
-                        "background-color": $scope.option.value
-                    }
+                    $scope.bgcolor=$scope.option.value
                 }
                 $scope.changeFontColor=function(){
-                    $scope.fontcolor={
-                        "color": $scope.font.value
-                    }
+                    $scope.fontcolor=$scope.font.value
                 }
             })
         </script>
