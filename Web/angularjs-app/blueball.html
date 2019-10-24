@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            BlueBall Game
+        </title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+        <style>
+            .button {
+                background-color: gray;
+                border: none;
+                color: black;
+                padding: 20px;
+                text-align: center;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+            
+            .button1 {
+                background-color: cyan;
+                border: none;
+                color: black;
+                padding: 20px;
+                text-align: center;
+                border-radius: 12px;
+                }
+            .button2 {
+                border-radius: 50%;
+                }
+            .setblue{
+                background-color: blue;
+            }
+            .setred{
+                background-color: red;
+            }
+            .setgreen{
+                background-color: #00ff00;
+            }
+            </style>
+        <script src="jquery.js"></script>
+    </head>
+    <body style="text-align: center; background-color: khaki">
+        <h1 style="text-align: center"><b><i>Welcome to <span style="color: blue">BlueBall</span> Game</i></b></h1>
+        <div style="font-size: 125%; visibility: visible;" id="bodyDiv">
+            <ol style="text-align: left">
+                <li>Press 'OK' button to start the Game</li>
+                <li>After the game is launched you must know the following game rules to be followed</li>
+            </ol>
+            
+            <br style="text-align: left">The following Rules are: <br>
+           <ul style="list-style-type:square; text-align: left">
+            
+               <li> In this game your target is to find the "<span style="color: blue">Blue</span>" coloured ball</li>
+               <li> If you guessed the ball , then if that ball is not <span style="color: blue">Blue</span> then that ball is either marked as <span style="color:red">Red</span> or <span style="color:#00FF00">Green</span></li>
+               <li> If the ball is marked as <span style="color:red">Red</span> then it means that <span style="color: blue">Blue</span> ball will occur after that ball</li>
+               <li> If the ball is marked as <span style="color:#00FF00">Green</span> then it means that <span style="color: blue">Blue</span> ball will occur before that ball</li>
+               <li> If the guessed ball is already <span style="color: blue">Blue</span> ball then the game gets over</li>
+               <li> There are only 3 attempts allowed after 3 attempts the game will get over.</li>
+           </ul>
+           <button style="text-align: center" class="button1" onclick="setVisibility(); timer()">
+                OK
+            </button>
+        </div> 
+        
+        <div id="buttons">
+           
+            <button id="restart" class="button button1">
+                RESTART
+            </button>
+            <p>Attempts: <b id="attempts"></b></p>
+            <p style="text-align: left">Time Taken: <span id="timetaken"></span></p>
+            <div id="button">
+                <!-- <p id="won"></p> -->
+                <p id="gameover"></p><br>
+                You have only 10 seconds to play this game<br><br>
+            </div>
+        </div>
+
+        <script>
+            var startTime
+            var seconds=10e3
+            var timer1
+            var buttons
+            var randomNumber
+            var buttonsField=$("#buttons")
+            var bodyDiv=$("#bodyDiv")
+            var button=$("#button")
+            var attemptsid=$("#attempts")
+            var timetaken=$("#timetaken")
+            var attempts=3
+            $("#restart").click(restart)
+            addButtons();
+            buttonsField.hide()
+
+            function addButtons(){
+                randomNumber=Math.floor((Math.random() * 50) + 1)
+                console.log(randomNumber)
+                for(var i=1;i<=50;i++){
+                    attemptsid.text(attempts)
+                    button.append(`<button class="button button2" id="buttonid${i}" onclick="setButtonColor(this.innerHTML,${i})">${i}</button>`)
+                }
+            }
+            function setVisibility(){
+                buttonsField.show()
+                bodyDiv.empty()  
+            }
+            function restart(){
+                button.html("")
+                button.html("<p id='gameover'></p> <br>You have only 10 seconds to play this game<br><br>");
+                addButtons();
+                attempts=3;
+                attemptsid.html(attempts)
+                timer();
+                timetaken.html("")
+            }
+            function setButtonColor(buttontext,currentButton){
+                var buttonsid=$(`#buttonid${currentButton}`)
+                var timeDifference=new Date().getTime()-startTime
+                if(attempts>0 && timeDifference<seconds){
+                    attempts-=1;
+                    attemptsid.html(attempts)
+                    console.log(buttontext)
+                    if(buttontext==randomNumber){
+                        buttonsid.addClass("button button2 setblue")
+                        $("#gameover").html("You Won the Game")
+                        if(timetaken.html(""))
+                        timetaken.html((new Date().getTime()-startTime)/1000)
+                        attemptsid.html(attempts)
+                        $("#button *").prop('disabled',true);
+                        clearTimeout(timers)
+                    }
+                    if(buttontext>randomNumber)
+                        buttonsid.addClass("button button2 setgreen")
+                    if(buttontext<randomNumber)
+                        buttonsid.addClass("button button2 setred")
+                    }
+                if(attempts==0 && buttontext!=randomNumber){
+                    gameover()
+                }
+            }
+            function timer(){
+                startTime = new Date().getTime();
+                timers=setTimeout(timeout,seconds)               
+            }
+            function gameover(){
+                if($("#gameover").text()!="You Won the Game")
+                $("#gameover").html("Game Over")
+                if(timetaken.html(""))
+                    timetaken.html((new Date().getTime()-startTime)/1000)
+                $("#button *").prop('disabled',true);
+            }
+            function timeout(){
+                if($("#gameover").text()!="Game Over" &&  $("#gameover").text()!="You Won the Game")
+                $("#gameover").html("Time Out")
+                $("#button *").prop('disabled',true);  
+            }
+        </script>
+    </body>
+</html>

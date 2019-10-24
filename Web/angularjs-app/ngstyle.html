@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            ng-style
+        </title>
+    </head>
+    <script src="angular.js"></script>
+
+    <body ng-app="modA">
+
+        <marquee><h1 ng-style="data">Sunny Maurya</h1></marquee>
+
+        <script>
+        var module1 = angular.module("modA", []);
+        module1.controller("controllerA", function($scope) {
+        $scope.data = {
+            "color" : "yellow",
+            "background-color" : "green",
+            "font-size" : "60px",
+            "text-align": "center"
+        }
+        })
+        </script>
+
+    </body>
+</html>

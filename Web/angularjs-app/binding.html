@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Binding
+        </title>
+        <script src="angular.js"></script>
+    </head>
+    <body>
+        <div ng-app="modA" ng-controller="controllerA">
+            Text: <input type="text" id="textbox" ng-model="text" ><br><br>
+            Text-Background Color: <select ng-model="option" ng-options="c.name for c in values" ng-change="changeBgColor()"></select><br><br>
+            Font Color: <select ng-model="font" ng-options="c.name for c in values" ng-change="changeFontColor()"></select><br><br>
+            Font Size: <input type="number" id="fontsize" ng-model="size"><br><br>
+            Entered Text: <span ng-style="{'background-color':bgcolor, 'color':fontcolor,'font-size':size+'px'}">{{text}}</span>
+        </div>
+        <script>
+            var module=angular.module("modA",[])
+            module.controller("controllerA",function($scope){
+                $scope.text=""
+                $scope.size=""
+                $scope.values=[
+                    {name:"---select---", value:"white"},
+                    {name:"Green", value:"green"},
+                    {name:"Cyan", value:"cyan"},
+                    {name:"Yellow", value:"yellow"},
+                    {name:"Blue", value:"blue"},
+                    {name:"Purple", value:"purple"}
+                ]
+                $scope.option=$scope.values[0]
+                $scope.font=$scope.values[0]
+
+                $scope.changeBgColor=function(){
+                    $scope.bgcolor=$scope.option.value
+                }
+                $scope.changeFontColor=function(){
+                    $scope.fontcolor=$scope.font.value
+                }
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Numbers API
+        </title>
+        <script src="angular.js"></script>
+    </head>
+    <body align="center" style="background-color: khaki;" ng-app="modA" ng-controller="controllerA">
+        <marquee><h1>Numbers API</h1></marquee>
+        <div>
+            Enter Number: <input type="number" id="number" ng-model="text"><br><br>
+            <button id="button" ng-disabled="disable" ng-click="loadData()">Find Facts</button><br><br>
+        </div>
+        <div align="center" ng-show="displayGif">
+            <img ng-src="image/giphy.gif">
+        </div>
+        <div id="result">
+            <p style="color: red">{{error}}</p>
+            <p>{{data}}</p>
+        </div>
+        <script>
+            var module=angular.module("modA",[])
+            module.controller("controllerA",function($scope,$http){
+                $scope.text=0
+                $scope.data=''
+                $scope.loadData=function(){
+                    $scope.error=""
+                    $scope.displayGif=true
+                    $scope.disable=true
+                    console.log($scope.text)
+                $http.get(`http://numbersapi.com/${$scope.text}`).then(function(response){
+                    $scope.data=$scope.data+response.data
+                    console.log(response.data)
+                    console.log($scope.data)
+                    $scope.displayGif=false
+                    $scope.disable=false
+                }).catch(function(errorMessage){
+                    $scope.displayGif=false
+                    $scope.disable=false
+                    $scope.error="Please Check your Internet Connection!!!"
+                    console.log(errorMessage)
+                })
+            }   
+            })
+        </script>
+    </body>
+</html>

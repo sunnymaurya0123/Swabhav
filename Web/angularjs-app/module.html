@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Module
+        </title>
+        <script src="angular.js"></script>
+    </head>
+    <body ng-app="modA">
+        <section ng-controller="controllerA">
+            <h1>{{data}}</h1>
+        </section>
+        <section>
+            <h1>{{data||'No Data'}}</h1>
+            <h1>{{company}}</h1>
+        </section>
+        <section ng-controller="controllerB">
+                <h1>{{data}}</h1>
+            </section>
+        <script>
+            var moduleA=angular.module('modA',['modB'])
+            moduleA.controller('controllerA',function($scope,$rootScope){
+                console.log("Inside controllerA")
+                console.log($rootScope)
+                $rootScope.company='Aurion Pro'
+                $scope.data='Hello controllerA'
+            })
+
+            var moduleB=angular.module('modB',[])
+            moduleB.controller('controllerB',function($scope,$rootScope){
+                console.log("Inside controllerB")
+                $scope.data='Hello controllerB'
+                console.log($rootScope.company)
+            })
+        </script>
+    </body>
+</html>

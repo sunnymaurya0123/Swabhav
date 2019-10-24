@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Two Way Binding
+        </title>
+    </head>
+    <script src="angular.js"></script>
+    <body>
+        <div ng-app="modA" ng-controller="controllerA">
+            FirstName: <input type="text" name="firstname" ng-model="name"><br><br>
+            LastName: <input type="text" name="lastname" ng-model="lastname"><br><br>
+            <div>{{name+" "+lastname}}</div>
+        </div>
+        <script>
+            var module=angular.module('modA',[])
+            module.controller("controllerA",function($scope){
+            $scope.name="Sunny"
+            $scope.lastname="Maurya"
+            })
+        </script>
+    </body>
+</html>
