@@ -52,7 +52,9 @@ public class SessionServlet extends HttpServlet {
 		out.println(prevCount);
 		out.println("</label><br><br>\r\n" + "        <label style=\"color: yellow;\">New:");
 		out.println(count);
-		out.println("</label><br><br></form>\r\n" + "\r\n" + "</body>\r\n" + "\r\n" + "</html>");
+		out.println(
+				"<br><br><a style=\"color: yellow;\" href=\"http://localhost:8080/welcome-servlet-app/summary\">Summary</a><br><br></label><br><br></form>\r\n"
+						+ "\r\n" + "</body>\r\n" + "\r\n" + "</html>");
 	}
 
 	/**

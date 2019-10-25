@@ -17,31 +17,25 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/application")
 public class ApplicationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ApplicationServlet() {
-        super();
-        System.out.println("Inside applicationServlet");
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ApplicationServlet() {
+		super();
+		System.out.println("Inside applicationServlet");
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("Inside applicationGET");
 		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE html>\r\n" + 
-				"<html>\r\n" + 
-				"\r\n" + 
-				"<head>\r\n" + 
-				"    <title>\r\n" + 
-				"        Application\r\n" + 
-				"    </title>\r\n" + 
-				"</head>\r\n" + 
-				"\r\n" + 
-				"<body>");
+		out.println("<!DOCTYPE html>\r\n" + "<html>\r\n" + "\r\n" + "<head>\r\n" + "    <title>\r\n"
+				+ "        Application\r\n" + "    </title>\r\n" + "</head>\r\n" + "\r\n" + "<body>");
 		int count;
 		ServletContext application = getServletConfig().getServletContext();
 		HttpSession session = request.getSession();
@@ -60,13 +54,17 @@ public class ApplicationServlet extends HttpServlet {
 		out.println(prevCount);
 		out.println("</label><br><br>\r\n" + "        <label style=\"color: yellow;\">New:");
 		out.println(count);
-		out.println("</label><br><br></form>\r\n" + "\r\n" + "</body>\r\n" + "\r\n" + "</html>");
+		out.println(
+				"<br><br><a style=\"color: yellow;\" href=\"http://localhost:8080/welcome-servlet-app/summary\">Summary</a><br><br></label><br><br></form>\r\n"
+						+ "\r\n" + "</body>\r\n" + "\r\n" + "</html>");
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("Inside applicationPOST");
 		doGet(request, response);
 	}
