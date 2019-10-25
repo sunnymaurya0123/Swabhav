@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            AngularJS Services
+        </title>
+    </head>
+    <script src="angular.js"></script>
+    <body ng-app="modA">
+        <div ng-controller="controllerA">
+
+        </div>
+        <div ng-controller="controllerB">
+
+        </div>
+        <div ng-controller="controllerC">
+
+        </div>
+        <script>
+            var module1=angular.module("modA",[])
+            module1.controller("controllerA",function($scope,angularService){
+                $scope.data=angularService
+                console.log($scope.data)
+            })
+
+            module1.controller("controllerB",function($scope,angularService){
+                $scope.data=angularService
+                console.log($scope.data)
+            })
+
+            module1.controller("controllerC",function($scope,angularService){
+                $scope.data=angularService
+                console.log($scope.data)
+            })
+
+            module1.factory("angularService",function(){
+                var data="Sunny"
+                return data
+            })
+        </script>
+    </body>
+</html>
