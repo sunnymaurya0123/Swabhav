@@ -11,7 +11,8 @@
 	<%
 		List<Student> students=(List)request.getAttribute("studentlist");
 		for(Student student:students){
-			out.print("<br>Name: "+student.getName()+"&nbsp;&nbsp;ID: "+student.getId()+"&nbsp;&nbsp;CGPI: "+student.getCgpi());
+			out.print("<br>Name: "+student.getName()+"&nbsp;&nbsp;ID: "+student.getId()+"&nbsp;&nbsp;CGPI: "+student.getCgpi()+"&nbsp;");
+			out.print("<a href='edit?id="+student.getId()+"'>Edit</a>");
 		}
 	%>
 	<br><br>

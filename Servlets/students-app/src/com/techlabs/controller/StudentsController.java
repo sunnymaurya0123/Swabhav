@@ -26,13 +26,11 @@ public class StudentsController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		StudentService studentService=new StudentService();
+		StudentService studentService=StudentService.getInstance();
 		List<Student> list= studentService.get();
-		
 		request.setAttribute("studentlist", list);
 		RequestDispatcher view = request.getRequestDispatcher("students.jsp");
 		view.forward(request, response);
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

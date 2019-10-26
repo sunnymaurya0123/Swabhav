@@ -10,6 +10,13 @@ public class Student {
 		sid=100;
 	}
 	
+	public Student(String name, double cgpi) {
+		id=++sid;
+		this.name=name;
+		this.cgpi=cgpi;
+		
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -22,10 +29,13 @@ public class Student {
 		return cgpi;
 	}
 
-	public Student(String name, double cgpi) {
-		id=++sid;
-		this.name=name;
-		this.cgpi=cgpi;
-		
+	public void setName(String name) {
+		this.name = name;
 	}
+
+	public void setCgpi(double cgpi) {
+		this.cgpi = cgpi;
+	}
+
+	
 }
