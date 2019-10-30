@@ -42,30 +42,14 @@ public class EditController extends HttpServlet {
 		view.forward(request, response);
 		
 		System.out.println(studentId);
-		
-		
-		
-		
-//		if((!name.equals(null) && !name.equals("")) && (!number.equals(null) && !number.equals(""))){
-//			double cgpi=Double.parseDouble(number);
-//			studentService.edit(studentId, student);
-//			response.sendRedirect("/students-app/students");
-//		}
-//		else {
-//			validationMesssage="* All Fields are mandatory";
-//			request.setAttribute("validate", validationMesssage);
-//			request.setAttribute("inputName", name);
-//			request.setAttribute("inputCgpi", number);
-//			RequestDispatcher view1 = request.getRequestDispatcher("edit.jsp");
-//			view1.forward(request, response);
-//		}
-		
+
 		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Inside editPOST");
 		String validationMesssage="";
+		
 		String name=request.getParameter("Name");
 		String number=request.getParameter("Cgpi");
 		int studentId=Integer.parseInt(request.getParameter("id"));
@@ -78,13 +62,14 @@ public class EditController extends HttpServlet {
 		}
 		else {
 			validationMesssage="* All Fields are mandatory";
+			request.setAttribute("studentID", studentId);
 			request.setAttribute("validate", validationMesssage);
 			request.setAttribute("inputName", name);
 			request.setAttribute("inputCgpi", number);
-			RequestDispatcher view1 = request.getRequestDispatcher("edit.jsp");
-			view1.forward(request, response);
+			
+			RequestDispatcher view = request.getRequestDispatcher("edit.jsp");
+			view.forward(request, response);
 		}
-//		doGet(request, response);
 		
 	}
 

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+           mini SPA
+        </title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
+        <!-- <script src="angular.js"></script> -->
+    </head>
+    <body ng-app="modA" ng-controller="controllerA">
+            <p><a href="#/!">Home</a></p>
+            <h1>{{message}}</h1>
+        <script>
+            var module1 = angular.module('modA', ['ngRoute'])
+            module1.config(function($routeProvider){
+                $routeProvider
+                .when("/",{
+                    templateUrl : "home.html"
+                })
+                .when("/about",{
+                    templateUrl : "about.html"
+                })
+                .when("/career",{
+                    templateUrl : "career.html"
+                })
+            })
+        </script>
+    </body>
+</html>

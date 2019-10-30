@@ -57,4 +57,8 @@ public class StudentService {
 		System.out.println(oldStudent.getCgpi());
 	}
 	
+	void remove(int id) {
+		studentList.remove(get(id));
+	}
+	
 }
