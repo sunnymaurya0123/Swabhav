@@ -63,17 +63,8 @@ module1.controller("productdetailsController",["$scope","productDataService",fun
 
 }])
 
-module1.directive("starRating",function(){
-    function stars($scope,$attr){
-        $scope.singleStar=$attr.rating
-    }
-    return{
-        link: stars,
-        scope: true,
-        template: "{{singleStar}}"
-    }
-})
-.controller("productlistController",["$scope","productDataService",function($scope,productDataService){
+
+module1.controller("productlistController",["$scope","productDataService",function($scope,productDataService){
 
     $scope.data1="hello"
     $scope.isVisible=true
