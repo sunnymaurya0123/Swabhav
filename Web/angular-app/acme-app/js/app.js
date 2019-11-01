@@ -92,13 +92,32 @@ module1.controller("productlistController",["$scope","productDataService",functi
     }
 }])
 
-module1.directive("starRating",function(){
-    function stars($scope,$attr){
-        $scope.singleStar=$attr.rating
-    }
-    return{
-        link: stars,
-        scope: true,
-        template: "{{singleStar}}"
-    }
-})
+module1.directive("averageStarRating", function () {
+    return {
+        template: "<div class='average-rating-container'>" +
+            "  <ul class='rating'>" +
+            "    <li ng-repeat='star in stars' class='star'>" +
+            "    </li>" +
+            "  </ul>" +
+            "  <ul class='rating foreground' style='width:{{filledInStarsContainerWidth}}%'>" +
+            "    <li ng-repeat='star in stars' class='filled'>" +
+            "      <i class='glyphicon glyphicon-star'></i>" +
+            "    </li>" +
+            "  </ul>" +
+            "</div>",
+        scope: {
+            bindStarRating: "=ngModel",
+            max: "="
+        },
+        link: function (scope) {
+            //  scope.max = 5;
+            scope.stars = [];
+            for (var i = 0; i < scope.max; i++) {
+                scope.stars.push({});
+            }
+            var starContainerMaxWidth = 100; //%
+            console.log(scope.bindStarRating)
+            scope.filledInStarsContainerWidth = scope.bindStarRating / scope.max * starContainerMaxWidth;
+        }
+    };
+});

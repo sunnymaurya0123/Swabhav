@@ -99,3 +99,27 @@ span.stars span {
 .alignleft {
 float:left;
 }
+
+.rating {
+  margin: 0;
+  padding: 0;
+}
+.rating li {
+  font-size: 21px;
+  display: inline-block;
+}
+.rating li.filled {
+  color: #000;
+}
+
+.average-rating-container {
+  position: relative;
+  height: 31px;
+  width: 103px;
+}
+.average-rating-container .foreground {
+  position: absolute;
+  top: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}

@@ -33,9 +33,10 @@
                             <!-- <span class="stars alignleft">
                                 <span ng-style="{ 'width': getStars(product.starRating) }"></span>
                             </span> -->
-                            <aurionpro-rating rating="{{product.starRating}}">
+                            <average-star-rating ng-model="product.starRating" max="5"></average-star-rating>
+                            <!-- <aurionpro-rating rating="{{product.starRating}}">
                                 <span class="glyphicon glyphicon-star"></span>
-                            </aurionpro-rating>
+                            </aurionpro-rating> -->
                         </td>
                     </tr>
                 </tbody>
