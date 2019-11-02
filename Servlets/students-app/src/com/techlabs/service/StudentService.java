@@ -1,4 +1,4 @@
-package com.techlabs.controller;
+package com.techlabs.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,16 +33,16 @@ public class StudentService {
 		return singleObject;
 	}
 	
-	List<Student> get(){
+	public List<Student> get(){
 		return studentList;
 	}
 	
-	void add(Student student) {
+	public void add(Student student) {
 		studentList.add(student);
 		System.out.println(studentList.size());
 	}
 	
-	Student get(int id) {
+	public Student get(int id) {
 		for(Student student:studentList) {
 			if(student.getId()==id)
 				return student;
@@ -50,14 +50,14 @@ public class StudentService {
 		return null;
 	}
 	
-	void edit(int id,Student student) {
+	public void edit(int id,Student student) {
 		Student oldStudent=get(id);
 		oldStudent.setName(student.getName());
 		oldStudent.setCgpi(student.getCgpi());
 		System.out.println(oldStudent.getCgpi());
 	}
 	
-	void remove(int id) {
+	public void remove(int id) {
 		studentList.remove(get(id));
 	}
 	

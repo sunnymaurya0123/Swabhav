@@ -1,7 +1,6 @@
 package com.techlabs.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.techlabs.model.Student;
+import com.techlabs.service.StudentService;
 
 /**
  * Servlet implementation class EditController
