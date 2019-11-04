@@ -43,7 +43,7 @@ public class StudentService {
 	}
 	
 	public Student get(int id) {
-		for(Student student:studentList) {
+		for(Student student:get()) {
 			if(student.getId()==id)
 				return student;
 		}

@@ -26,11 +26,7 @@ public class EditController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Inside editGET");
-		String validationMesssage="";
 		StudentService studentService=StudentService.getInstance();
-		
-		String name=request.getParameter("Name");
-		String number=request.getParameter("Cgpi");
 		int studentId=Integer.parseInt(request.getParameter("id"));
 		
 		Student student=studentService.get(studentId);
