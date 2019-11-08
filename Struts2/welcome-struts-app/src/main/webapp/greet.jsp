@@ -5,12 +5,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Home</title>
+<title>Greet</title>
 </head>
 <body>
-<h1>This is Home Jsp Page</h1>
-<s:iterator begin="0" end="9">Developer: <s:property value="developer" /><br></s:iterator>
-
-      
+<s:property value="message"/>
 </body>
 </html>
