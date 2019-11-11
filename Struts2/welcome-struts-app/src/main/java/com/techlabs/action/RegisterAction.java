@@ -1,26 +1,20 @@
 package com.techlabs.action;
 
-import java.util.Map;
-
-import org.apache.struts2.interceptor.SessionAware;
-
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.techlabs.model.RegisterViewModel;
 
-public class RegisterAction extends ActionSupport implements SessionAware,ModelDriven<RegisterViewModel> {
+public class RegisterAction extends ActionSupport implements ModelDriven<RegisterViewModel> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	RegisterViewModel model;
 	
 	public RegisterAction() {
 		System.out.println("Inside Constructor");
 		model=new RegisterViewModel();
-	}
-	
-	@Override
-	public void setSession(Map<String, Object> session) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override

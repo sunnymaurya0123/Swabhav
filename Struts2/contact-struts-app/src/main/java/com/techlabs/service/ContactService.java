@@ -1,5 +1,6 @@
 package com.techlabs.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.tachlabs.model.Contact;
@@ -12,7 +13,10 @@ public class ContactService {
 	Contact c3=new Contact("Akash","akash@gmail.com","9849646121");
 	
 	private ContactService() {
-		
+		contactList=new ArrayList<Contact>();
+		contactList.add(c1);
+		contactList.add(c2);
+		contactList.add(c3);
 	}
 	
 	public static ContactService getInstance() {
@@ -25,7 +29,4 @@ public class ContactService {
 		return contactList;
 	}
 	
-	public void add(Contact contact) {
-		contactList.add(contact);
-	}
 }
