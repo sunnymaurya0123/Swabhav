@@ -2,17 +2,20 @@ package com.techlabs.actions;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
-import com.tachlabs.model.Contact;
+import com.techlabs.model.Contact;
 import com.techlabs.service.ContactService;
 import com.techlabs.viewmodels.ContactAddViewModel;
 
 public class ContactAddAction extends ActionSupport implements ModelDriven<ContactAddViewModel>{
 
-	ContactAddViewModel contactAddViewModel;
-	ContactService contactService=ContactService.getInstance();
-	List<Contact> contactList=contactService.get();
+	private ContactAddViewModel contactAddViewModel;
+	@Autowired
+	private ContactService contactService;
+	private List<Contact> contactList;
 	
 	public ContactAddAction() {
 		System.out.println("Inside ContactAddAction Constructor");
@@ -33,11 +36,13 @@ public class ContactAddAction extends ActionSupport implements ModelDriven<Conta
 	
 	@Override
 	public ContactAddViewModel getModel() {
+		System.out.println("Inside getModel");
 		return contactAddViewModel;
 	}
 	
 	public String addContact() {
 		contactService.addContact(new Contact(contactAddViewModel.getName(),contactAddViewModel.getEmail(),contactAddViewModel.getPhoneNo()));
+		contactList=contactService.get();
 		return SUCCESS;
 	}
 	
@@ -48,6 +53,7 @@ public class ContactAddAction extends ActionSupport implements ModelDriven<Conta
 	}
 
 	public List<Contact> getContactList() {
+		System.out.println("Inside GetList"+contactList);
 		return contactList;
 	}
 	
