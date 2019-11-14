@@ -19,11 +19,7 @@
 	<jsp:useBean class="com.techlabs.listeners.EventListeners"
 		id="sessionCounter" scope="application" />
 	<UL>
-		<LI>Total number of visitor: <jsp:getProperty
-				name="sessionCounter" property="visitorCount" />. <LI>Number of active users: <jsp:getProperty
-				name="sessionCounter" property="activeUsersCount" />
-</LI>
-</UL>
+		
 	<%
 		String errormsg = (String) request.getAttribute("errorMsg");
 		if (errormsg == null)
